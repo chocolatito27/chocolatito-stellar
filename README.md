@@ -158,6 +158,38 @@ no se ha hecho todavía y no lo contamos como hecho.
 
 ---
 
+## Código y servicios de terceros (bases §8.3)
+
+| Qué | Licencia | Para qué |
+|---|---|---|
+| [`@stellar/stellar-sdk`](https://github.com/stellar/js-stellar-sdk) 13.3.0 | Apache-2.0 | Construir y firmar las transacciones en el cliente |
+| [Horizon](https://developers.stellar.org/docs/data/apis/horizon) (testnet) | servicio público de la SDF | Consultar la cadena para verificar los pagos |
+| [Friendbot](https://developers.stellar.org/docs/build/guides/basics/create-account) | servicio público de la SDF | Fondear las cuentas de prueba |
+| Lemon Squeezy | servicio comercial | **Preexistente**, no forma parte de lo presentado. Emite las licencias del producto; aquí solo se usa el prefijo de la clave como `memo` para atribuir cada pago. |
+
+Apache-2.0 es compatible con la licencia MIT de este repositorio.
+
+No se ha usado ninguna plantilla ni *starter kit*: los tres módulos de `src/`
+están escritos para este proyecto.
+
+## Sobre fondos reales (bases §18)
+
+**Este proyecto no toca dinero real en ningún punto, y está construido para que
+no pueda hacerlo.**
+
+- La red está fijada a `Networks.TESTNET` en `src/cartera.ts`. No hay ninguna
+  ruta de código hacia la red principal.
+- Las cuentas se fondean con Friendbot, que **solo existe en testnet**.
+- El proxy de producción de Chocolatito —que sí cobra de verdad— **no se ha
+  modificado ni se despliega como parte de esta hackathon**. La capa de pagos
+  vive entera en este repositorio. El medidor de coste se reproduce aquí a
+  partir de la misma tabla de precios, sin llamar al servicio en vivo.
+
+Esa separación es deliberada: el producto sigue vendiendo por su lado y el
+proyecto presentado no participa de ese flujo.
+
+---
+
 ## Equipo
 
 | | GitHub | Rol |
