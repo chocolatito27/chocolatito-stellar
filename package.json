@@ -1,0 +1,18 @@
+{
+  "name": "chocolatito-stellar",
+  "version": "0.1.0",
+  "description": "Un agente de IA que firma, por cada tarea, el pago exacto de lo que esa tarea costo, en Stellar.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "construir": "tsc",
+    "probar": "node --test --experimental-strip-types pruebas/*.test.ts"
+  },
+  "dependencies": {
+    "@stellar/stellar-sdk": "^13.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}

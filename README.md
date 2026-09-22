@@ -115,10 +115,46 @@ repositorio y no haya que fiarse de nuestra palabra.
 
 ---
 
-## Evidencia on-chain
+## Evidencia on-chain (testnet)
 
-> Pendiente. Aquí van el id de la cuenta de testnet y los hashes de las
-> transacciones generadas por tareas reales, no por un script de demostración.
+Primera liquidación, con el importe exacto que cuesta una tarea real de
+Chocolatito:
+
+| | |
+|---|---|
+| **Transacción** | [`fe620dbc1e891155e9fe8b27aa309d00db046a93bc858939afa12efd0d9d0656`](https://stellar.expert/explorer/testnet/tx/fe620dbc1e891155e9fe8b27aa309d00db046a93bc858939afa12efd0d9d0656) |
+| Cuenta del agente | `GBBS2QRWNCNC7T4J7IHA6M4OO5TSB56OJ25C3JGZWJXCJEKYRDCBMY4Y` |
+| Cuenta de cobro | `GBGN5VOQ5ANM5H5TI3TXFRZSNNKO3ONCS5TA6TYAEOZQYY3LLIGOSYW3` |
+| Importe | 0,0041 — el coste medido de una tarea |
+| Memo | `cc:42f5ae22` (atribución a la licencia) |
+| Comisión de red | **100 stroops = 0,00001** |
+| Fecha | 2026-09-22 22:45:37 UTC |
+
+**El número que resume el proyecto**: cobrar 0,0041 costó 0,00001 de comisión.
+Una pasarela de tarjeta cobra del orden de 0,30 fijos — setenta y cinco veces
+el propio pago. Por eso este cobro no existe fuera de un riel como Stellar.
+
+### Lo que se comprueba antes de dar por bueno un pago
+
+El agente firma en la máquina del usuario, así que su palabra no basta. El
+proxy va a Horizon y comprueba cuatro cosas; saltarse cualquiera deja una
+forma de cobrar sin pagar. Probado contra la transacción de arriba:
+
+| Intento | Resultado |
+|---|---|
+| El pago bueno | ✅ válido |
+| Presentarlo cuando se debía 1,00 | ❌ «Pagó 0.0041 y debía 1» |
+| Reutilizar el pago de otra licencia | ❌ «El memo no corresponde a esta licencia» |
+| Pagarse a sí mismo y enseñar el hash | ❌ «La transacción no paga a la cuenta de cobro» |
+| Inventarse un hash | ❌ «Esa transacción no existe en la red» |
+
+Se reproduce con `node --experimental-strip-types guiones/probar-verificacion.ts`.
+
+### Nota honesta sobre el activo
+
+Ahora mismo se liquida en **XLM de testnet**, con el importe calculado en
+dólares por el medidor. El paso a USDC con su *trustline* es el siguiente hito;
+no se ha hecho todavía y no lo contamos como hecho.
 
 ---
 
