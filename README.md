@@ -134,6 +134,34 @@ Chocolatito:
 Una pasarela de tarjeta cobra del orden de 0,30 fijos — setenta y cinco veces
 el propio pago. Por eso este cobro no existe fuera de un riel como Stellar.
 
+### Una tarea entera, de principio a fin
+
+Seis vueltas de agente sobre *«revisa estas 40 facturas y hazme un Excel»*,
+medidas una a una y liquidadas al cerrar la tarea:
+
+| Vuelta | Entrada | Cacheada | Salida | Coste |
+|---:|---:|---:|---:|---:|
+| 1 | 4.820 | 0 | 210 | 0,0023980 |
+| 2 | 5.310 | 4.800 | 180 | 0,0005292 |
+| 3 | 6.040 | 5.280 | 340 | 0,0008571 |
+| 4 | 7.120 | 6.000 | 260 | 0,0009200 |
+| 5 | 7.900 | 7.100 | 410 | 0,0009926 |
+| 6 | 8.730 | 7.880 | 520 | 0,0011707 |
+| | | | **Total** | **0,0068676** |
+
+**Transacción**:
+[`c6d9529d2343cbf1f814c157d63b2e56c5f739c00d90231074a27296594e0698`](https://stellar.expert/explorer/testnet/tx/c6d9529d2343cbf1f814c157d63b2e56c5f739c00d90231074a27296594e0698)
+· verificada contra la cadena: **válida**.
+
+**Por qué el medidor no es un detalle**: sin descontar los aciertos de caché,
+esa misma tarea habría costado **0,0200992 — 2,9 veces más**. La primera vuelta
+manda el prompt entero sin cachear; las cinco siguientes reenvían la
+conversación, que ya está en caché y cuesta treinta veces menos por token. Un
+cobro que ignore eso no es un redondeo: es una factura casi triple por el mismo
+trabajo.
+
+Se reproduce con `node --experimental-strip-types guiones/tarea-completa.ts`.
+
 ### Lo que se comprueba antes de dar por bueno un pago
 
 El agente firma en la máquina del usuario, así que su palabra no basta. El
