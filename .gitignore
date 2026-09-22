@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+.env.local
+# La clave secreta de Stellar NUNCA entra al repositorio. El flujo de trabajo
+# la guarda en el perfil del usuario, no en el proyecto: si alguna vez aparece
+# un archivo asi aqui, es un error, no una excepcion.
+*.secret
+llaves/
+.wrangler/
