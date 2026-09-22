@@ -1,7 +1,7 @@
 # Chocolatito · Pago por uso en Stellar
 
 **Un agente de IA que firma, por cada tarea que hace, el pago exacto de lo que
-esa tarea costó — en USDC sobre Stellar.**
+esa tarea costó — sobre Stellar, y por un céntimo de comisión.**
 
 Track: **AI Agents & Automated Workflows** · Stellar Odyssey Perú 2026
 
@@ -29,10 +29,10 @@ aciertos de caché incluido— porque lo necesita para su propio control de gast
 Lo que este proyecto añade es la otra mitad: **que ese número medido se liquide
 solo, on-chain, sin que nadie lo apunte a mano.**
 
-Un pago de 0,004 USD no es viable por tarjeta: la comisión se come el pago
-veinte veces. Sobre Stellar cuesta 0,00001 XLM. Ese es exactamente el hueco que
-Stellar llena, y es la razón de que este proyecto tenga sentido aquí y no en
-otro sitio.
+Un pago de 0,0041 no es viable por tarjeta: la comisión de la pasarela ronda
+los 0,30 fijos, setenta y cinco veces el propio pago. Sobre Stellar costó
+0,00001 —está medido más abajo, no es una estimación—. Ese hueco es la razón
+de que este proyecto tenga sentido aquí y no en otro sitio.
 
 ---
 
@@ -41,7 +41,7 @@ otro sitio.
 | Pieza | Qué hace en Stellar |
 |---|---|
 | **El agente firma** | La CLI tiene la clave secreta y construye y firma cada pago. El proxy nunca la ve. |
-| **Saldo previo** | El usuario recarga una cuenta con USDC de testnet. El proxy consulta ese saldo en Horizon antes de dejar trabajar al agente. |
+| **Saldo previo** | El usuario recarga su cuenta de testnet. El proxy consulta ese saldo en Horizon antes de dejar trabajar al agente. |
 | **Liquidación por tarea** | Al terminar cada tarea, el agente firma un pago por el coste exacto medido, con el id de licencia en el `memo` para atribuirlo. |
 | **Verificación** | El proxy comprueba el pago contra Horizon. No se fía del cliente: mira la cadena. |
 
