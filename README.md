@@ -218,14 +218,38 @@ proyecto presentado no participa de ese flujo.
 
 ---
 
+## Cómo verlo funcionando
+
+```bash
+npm install
+node --experimental-strip-types guiones/demo.ts
+```
+
+Corre de principio a fin en unos 75 segundos: crea las cuentas, fondea con
+Friendbot, mide una tarea vuelta a vuelta, firma el pago y lo verifica contra
+la cadena. **Nada está preparado de antemano** — cada ejecución genera su
+propia transacción, y el enlace al explorador que sale al final es comprobable.
+
+Con `--rapido` va sin pausas.
+
+| Guión | Qué prueba |
+|---|---|
+| `guiones/demo.ts` | El recorrido entero. Es lo que se graba. |
+| `guiones/tarea-completa.ts` | Medición + liquidación, sin narración |
+| `guiones/probar-pago.ts` | Solo la firma y el envío |
+| `guiones/probar-verificacion.ts` | Los cuatro fraudes que se rechazan |
+
+Ver también [DEMO.md](DEMO.md) (cómo se graba) y [PITCH.md](PITCH.md) (guión de
+los 3 minutos).
+
 ## Equipo
 
 | | GitHub | Rol |
 |---|---|---|
-| Tomás Diego Araujo Tejada | [@chocolatito27](https://github.com/chocolatito27) | Integración Stellar y proxy |
+| Tomás Diego Araujo Tejada | [@chocolatito27](https://github.com/chocolatito27) | Integración Stellar, medidor y verificación |
+| Rony Ricra Rojas | [@leonelricra2](https://github.com/leonelricra2) | Pitch, documentación y vídeo |
 
-*(pendiente de completar con los dos integrantes restantes antes del cierre del
-checkpoint, 23 sep 23:59 PET)*
+*(queda un integrante por sumarse antes del cierre del checkpoint, 23 sep 23:59 PET)*
 
 ## Licencia
 
