@@ -1,0 +1,48 @@
+{
+  "capturado": "2026-09-23T01:00:10.658Z",
+  "modelo": "deepseek-v4-flash",
+  "proxy": "https://chocolatito-proxy.chocolatito.workers.dev/v1/chat/completions",
+  "nota": "Tokens devueltos por el motor en llamadas reales. Sin licencias ni claves.",
+  "vueltas": [
+    {
+      "etiqueta": "lee el código del proyecto",
+      "prompt_tokens": 5769,
+      "completion_tokens": 193,
+      "prompt_tokens_details": {
+        "cached_tokens": 5632
+      }
+    },
+    {
+      "etiqueta": "explica cómo se firma un pago",
+      "prompt_tokens": 5972,
+      "completion_tokens": 529,
+      "prompt_tokens_details": {
+        "cached_tokens": 5760
+      }
+    },
+    {
+      "etiqueta": "revisa la verificación",
+      "prompt_tokens": 6397,
+      "completion_tokens": 946,
+      "prompt_tokens_details": {
+        "cached_tokens": 5888
+      }
+    },
+    {
+      "etiqueta": "busca huecos",
+      "prompt_tokens": 6907,
+      "completion_tokens": 1845,
+      "prompt_tokens_details": {
+        "cached_tokens": 6272
+      }
+    },
+    {
+      "etiqueta": "propone el siguiente paso",
+      "prompt_tokens": 7432,
+      "completion_tokens": 525,
+      "prompt_tokens_details": {
+        "cached_tokens": 6784
+      }
+    }
+  ]
+}

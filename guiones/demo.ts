@@ -14,6 +14,10 @@
  *
  * Con `--rapido` no espera entre pasos, para probarlo sin grabar.
  */
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { crearCartera, fondear, saldos } from "../src/cartera.ts";
 import { CuentaDeTarea } from "../src/liquidador.ts";
 import { costeSinDescuentoDeCache } from "../src/medidor.ts";
@@ -37,17 +41,43 @@ const titulo = (n: number, t: string) => {
 };
 
 const LICENCIA = "42f5ae22-ec4a-4d0c-bb2c-cc6e7b8ddb5f";
-const MODELO = "deepseek-v4-flash";
 
-/** El consumo real de una tarea de agente: la 1.ª sin caché, el resto con. */
-const VUELTAS = [
-  { etiqueta: "lee la carpeta de facturas", prompt_tokens: 4820, completion_tokens: 210, prompt_tokens_details: { cached_tokens: 0 } },
-  { etiqueta: "abre los 12 primeros PDF", prompt_tokens: 5310, completion_tokens: 180, prompt_tokens_details: { cached_tokens: 4800 } },
-  { etiqueta: "saca importes y fechas", prompt_tokens: 6040, completion_tokens: 340, prompt_tokens_details: { cached_tokens: 5280 } },
-  { etiqueta: "abre los 28 restantes", prompt_tokens: 7120, completion_tokens: 260, prompt_tokens_details: { cached_tokens: 6000 } },
-  { etiqueta: "agrupa por mes", prompt_tokens: 7900, completion_tokens: 410, prompt_tokens_details: { cached_tokens: 7100 } },
-  { etiqueta: "escribe balance.xlsx", prompt_tokens: 8730, completion_tokens: 520, prompt_tokens_details: { cached_tokens: 7880 } },
-];
+/**
+ * EL CONSUMO SALE DE UN ARCHIVO, Y ESE ARCHIVO SALE DEL MOTOR DE VERDAD.
+ *
+ * La primera version de esta demo llevaba los tokens escritos a mano. Todo lo
+ * demas era real -las cuentas, la transaccion, la verificacion- pero los
+ * numeros de partida no, y eso convertia una demo honesta en una que lo
+ * parecia. Quien abriera este archivo lo veia en diez segundos.
+ *
+ * Ahora vienen de `datos/uso-real.json`, que lo escribe `capturar-uso.ts`
+ * pidiendole de verdad al motor a traves del proxy. Si el archivo no esta, la
+ * demo NO se inventa nada: se para y dice como generarlo.
+ */
+const AQUI = path.dirname(fileURLToPath(import.meta.url));
+const DATOS = path.resolve(AQUI, "..", "datos", "uso-real.json");
+
+interface Vuelta {
+  etiqueta: string;
+  prompt_tokens: number;
+  completion_tokens: number;
+  prompt_tokens_details: { cached_tokens: number };
+}
+
+let capturado: { capturado: string; modelo: string; vueltas: Vuelta[] };
+try {
+  capturado = JSON.parse(await fs.readFile(DATOS, "utf8"));
+} catch {
+  console.error(
+    "\nFalta datos/uso-real.json — son las mediciones del motor de verdad.\n" +
+      "Generalo con:  node --experimental-strip-types guiones/capturar-uso.ts\n" +
+      "(necesita una licencia activa; gasta unos centimos de margen)\n"
+  );
+  process.exit(1);
+}
+
+const VUELTAS = capturado.vueltas;
+const MODELO_REAL = capturado.modelo;
 
 linea();
 linea(`${NARANJA}${FUERTE}  CHOCOLATITO · PAGO POR USO EN STELLAR${N}`);
@@ -74,10 +104,12 @@ linea(`  ${VERDE}✓${N} el agente tiene ${FUERTE}${s0[0]?.cantidad} XLM${N} de 
 await pausa(3);
 
 // ─────────────────────────────────────────────────────────────── 2
-titulo(2, 'Le pedimos una tarea de verdad');
-linea(`  ${FUERTE}«revisa estas 40 facturas y hazme un Excel con el balance»${N}`);
+titulo(2, "Una tarea de verdad, medida por el motor");
+linea(`  ${FUERTE}«lee el codigo de este proyecto y dime que le falta»${N}`);
+linea(`${GRIS}  18.381 caracteres de codigo real, mandados al motor de verdad.${N}`);
 linea();
-linea(`${GRIS}  Cada vuelta del agente se mide por separado. Todavía no se paga nada.${N}`);
+linea(`${GRIS}  Estos tokens los devolvio el motor el ${capturado.capturado.slice(0, 10)}.${N}`);
+linea(`${GRIS}  No son de ejemplo: estan en datos/uso-real.json.${N}`);
 await pausa(3);
 linea();
 linea(`${GRIS}     vuelta                        entrada   caché   salida      coste${N}`);
@@ -85,8 +117,8 @@ linea(`${GRIS}     vuelta                        entrada   caché   salida      
 const cuenta = new CuentaDeTarea(agente, cobro.publica, LICENCIA);
 let bruto = 0;
 for (const [i, v] of VUELTAS.entries()) {
-  const c = cuenta.apuntar(MODELO, v);
-  bruto += costeSinDescuentoDeCache(MODELO, v);
+  const c = cuenta.apuntar(MODELO_REAL, v);
+  bruto += costeSinDescuentoDeCache(MODELO_REAL, v);
   linea(
     `  ${GRIS}${String(i + 1).padStart(3)}${N}  ${v.etiqueta.padEnd(28)} ${String(v.prompt_tokens).padStart(6)}  ${String(
       v.prompt_tokens_details.cached_tokens
