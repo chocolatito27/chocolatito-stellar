@@ -228,6 +228,23 @@ proyecto presentado no participa de ese flujo.
 
 ---
 
+## Grabación de pantalla real del agente
+
+[`video/agente-navegador.mp4`](video/agente-navegador.mp4) — 1568×780, 9,3 s.
+
+**Esto sí son píxeles de una pantalla.** Se abrió la sesión del agente en el
+navegador con `chocolatito --servir`, se le dio la orden y se grabó el
+navegador mientras trabajaba: lista la carpeta, lee las ocho facturas una a
+una y escribe `balance.md`.
+
+Se grabó así porque la interfaz web del propio producto **ya existía** —
+`--servir` sirve la sesión para usarla desde el móvil— y eso permite capturar
+la sesión de verdad sin depender de un grabador de escritorio.
+
+Son 17 fotogramas: un agente trabajando no cambia la pantalla sesenta veces
+por segundo, así que capturar en los momentos en que pasa algo cuenta lo mismo
+y pesa 361 KB en vez de decenas de megas.
+
 ## El vídeo de la demo
 
 [`video/demo-chocolatito-stellar.mp4`](video/demo-chocolatito-stellar.mp4) —

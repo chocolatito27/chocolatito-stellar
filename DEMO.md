@@ -1,9 +1,15 @@
 # Cómo grabar el video demo
 
-> **Hay un MP4 en `video/` y NO sirve como entrega.** Es una reconstrucción:
-> el texto y los tiempos son reales, pero los píxeles los redibuja Chrome, no
-> salen de una pantalla. Para el jurado hace falta una captura de verdad —lo
-> que explica esta página— y son 90 segundos de trabajo.
+> **Hay dos vídeos en `video/` y no son lo mismo:**
+>
+> | Archivo | Qué es |
+> |---|---|
+> | `agente-navegador.mp4` | **Captura de pantalla real** del agente trabajando en el navegador |
+> | `demo-chocolatito-stellar.mp4` | **Reconstrucción**: texto y tiempos reales, píxeles redibujados |
+>
+> El segundo NO es una grabación, por fiel que sea. Sirve de respaldo y de
+> material para el pitch, pero lo que se entrega conviene que sea captura de
+> verdad — o la del navegador, o la tuya con `Win + G`.
 
 **Este es el que evalúa el jurado.** Las bases lo dicen con estas palabras:
 
