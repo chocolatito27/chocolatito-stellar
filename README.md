@@ -218,6 +218,24 @@ proyecto presentado no participa de ese flujo.
 
 ---
 
+## El vídeo de la demo
+
+[`video/demo-chocolatito-stellar.mp4`](video/demo-chocolatito-stellar.mp4) —
+1920×1080, 68 s.
+
+**No es una captura de pantalla ni una recreación.** Se genera ejecutando
+`demo.ts` de verdad, capturando su salida con los tiempos reales a los que va
+apareciendo y volviéndola a dibujar como terminal. Cada fotograma dura
+exactamente lo que tardó en salir, así que el ritmo del vídeo es el del
+programa.
+
+La transacción que aparece dentro se firmó durante esa grabación:
+[`8499aa06ba6bafdea9176d26565726daacf04997832a537bd593a10b22cb331a`](https://stellar.expert/explorer/testnet/tx/8499aa06ba6bafdea9176d26565726daacf04997832a537bd593a10b22cb331a)
+· 0,0068677 · comisión 0,00001 · **687 veces menor que el propio cobro**.
+
+Se regenera con `node --experimental-strip-types guiones/grabar.ts`, y cada
+ejecución produce una transacción nueva y comprobable.
+
 ## Cómo verlo funcionando
 
 ```bash

@@ -8,3 +8,11 @@ dist/
 *.secret
 llaves/
 .wrangler/
+
+# Los cuadros sueltos y la captura son material de trabajo del grabador: se
+# regeneran con `node --experimental-strip-types guiones/grabar.ts`. El MP4 si
+# entra al repo, porque es el entregable.
+video/cuadros/
+video/revision/
+video/cuadros.txt
+video/captura.json
