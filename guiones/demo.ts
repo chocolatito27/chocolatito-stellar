@@ -105,14 +105,15 @@ await pausa(3);
 
 // ─────────────────────────────────────────────────────────────── 2
 titulo(2, "Una tarea de verdad, medida por el motor");
-linea(`  ${FUERTE}«lee el codigo de este proyecto y dime que le falta»${N}`);
-linea(`${GRIS}  18.381 caracteres de codigo real, mandados al motor de verdad.${N}`);
+linea(`  ${FUERTE}«lee las 8 facturas de esta carpeta y escribe balance.md»${N}`);
+linea(`${GRIS}  Lo ejecutó Chocolatito Code de verdad. Leyó los 8 archivos,${N}`);
+linea(`${GRIS}  sumó por mes y escribió balance.md. Estas son SUS vueltas.${N}`);
 linea();
-linea(`${GRIS}  Estos tokens los devolvio el motor el ${capturado.capturado.slice(0, 10)}.${N}`);
-linea(`${GRIS}  No son de ejemplo: estan en datos/uso-real.json.${N}`);
+linea(`${GRIS}  Cada vuelta la decidió el agente solo, el ${capturado.capturado.slice(0, 10)}.${N}`);
+linea(`${GRIS}  Medidas al vuelo y guardadas en datos/uso-real.json.${N}`);
 await pausa(3);
 linea();
-linea(`${GRIS}     vuelta                        entrada   caché   salida      coste${N}`);
+linea(`${GRIS}     llamada        entrada   caché   salida      coste${N}`);
 
 const cuenta = new CuentaDeTarea(agente, cobro.publica, LICENCIA);
 let bruto = 0;
@@ -120,7 +121,7 @@ for (const [i, v] of VUELTAS.entries()) {
   const c = cuenta.apuntar(MODELO_REAL, v);
   bruto += costeSinDescuentoDeCache(MODELO_REAL, v);
   linea(
-    `  ${GRIS}${String(i + 1).padStart(3)}${N}  ${v.etiqueta.padEnd(28)} ${String(v.prompt_tokens).padStart(6)}  ${String(
+    `  ${GRIS}${String(i + 1).padStart(3)}${N}  ${v.etiqueta.padEnd(12)} ${String(v.prompt_tokens).padStart(6)}  ${String(
       v.prompt_tokens_details.cached_tokens
     ).padStart(6)}   ${String(v.completion_tokens).padStart(5)}  ${NARANJA}${c.toFixed(7)}${N}`
   );
@@ -134,6 +135,7 @@ await pausa(2);
 linea();
 linea(`${GRIS}  Sin descontar los aciertos de caché habrían sido ${bruto.toFixed(7)}.${N}`);
 linea(`${GRIS}  Casi el triple por el mismo trabajo. Por eso el medidor importa.${N}`);
+linea(`${GRIS}  La vuelta 1 manda las facturas sin cachear; las otras ya aciertan.${N}`);
 await pausa(4);
 
 // ─────────────────────────────────────────────────────────────── 3

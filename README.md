@@ -134,36 +134,43 @@ Chocolatito:
 Una pasarela de tarjeta cobra del orden de 0,30 fijos — setenta y cinco veces
 el propio pago. Por eso este cobro no existe fuera de un riel como Stellar.
 
-### Una tarea entera, medida por el motor de verdad
+### Una tarea entera, hecha por el agente de verdad
 
-**Estos tokens no son de ejemplo.** Salen de llamadas reales al motor a través
-del proxy de Chocolatito, hechas el 23 sep 2026 y guardadas en
-[`datos/uso-real.json`](datos/uso-real.json). La tarea fue darle a leer los
-18.381 caracteres de código de `src/` y pedirle que lo analizara — cinco
-vueltas, con la conversación creciendo, que es como trabaja un agente:
+**Esto no es una simulación de un agente: es el agente.** Se ejecutó
+**Chocolatito Code instalado**, con `chocolatito -y "..."`, sobre ocho archivos
+de factura en `datos/taller/`. Leyó los ocho, sumó por mes y escribió
+`balance.md`. Las vueltas de abajo son **las que él decidió dar solo**, medidas
+al vuelo y guardadas en [`datos/uso-real.json`](datos/uso-real.json).
 
-| Vuelta | Entrada | Cacheada | Salida | Coste |
+Se midió poniendo un proxy delante del proxy y lanzando el CLI contra él con
+`CHOCOLATITO_ENGINE_URL`. **No hubo que tocar ni una línea del producto**: esa
+variable ya existía para pruebas.
+
+| Llamada | Entrada | Cacheada | Salida | Coste |
 |---|---:|---:|---:|---:|
-| lee el código del proyecto | 5.769 | 5.632 | 193 | 0,0003939 |
-| explica cómo se firma un pago | 5.972 | 5.760 | 529 | 0,0008722 |
-| revisa la verificación | 6.397 | 5.888 | 946 | 0,0015551 |
-| busca huecos | 6.907 | 6.272 | 1.845 | 0,0028026 |
-| propone el siguiente paso | 7.432 | 6.784 | 525 | 0,0010731 |
-| | | | **Total** | **0,0066969** |
+| 1 · lee las facturas | 14.882 | 128 | 135 | 0,0066718 |
+| 2 · suma por mes | 15.259 | 14.592 | 459 | 0,0011036 |
+| 3 · arma la tabla | 16.383 | 14.976 | 852 | 0,0019534 |
+| 4 · escribe balance.md | 17.288 | 16.256 | 317 | 0,0011001 |
+| | | | **Total** | **0,0108289** |
 
-**Por qué el medidor no es un detalle**: sin descontar los aciertos de caché,
-esa misma tarea habría costado **0,0196200 — 2,9 veces más**. Un **66% de
-ahorro**, y medido, no estimado. La primera vuelta manda el código entero; las
-siguientes reenvían la conversación, que ya está en caché y cuesta treinta
-veces menos por token. Un cobro que ignore eso no es un redondeo: es una
-factura casi triple por el mismo trabajo.
+**Por qué el medidor no es un detalle**: sin descontar la caché, esa tarea
+habría costado **0,0304044 — 2,8 veces más**, un **64% de sobrefacturación**.
+Se ve en la tabla: la primera llamada manda las facturas y casi no acierta
+(128 de 14.882); a partir de la segunda el prefijo ya está en caché y cuesta
+treinta veces menos por token. Eso **solo pasa con un agente**, que arrastra el
+contexto vuelta tras vuelta, y es justo lo que un cobro por suscripción no ve.
 
-Se reproduce con `node --experimental-strip-types guiones/capturar-uso.ts`
-(necesita licencia activa y gasta unos céntimos) y luego `guiones/demo.ts`.
+**Y lo que se cobró por cobrarlo**: 0,00001 de comisión sobre 0,0108289 —
+**1.083 veces menos que el importe**. Una pasarela de tarjeta habría cobrado
+~0,30 fijos, **28 veces el propio cobro**.
 
-**Y si falta ese archivo, la demo no se inventa nada: se para.** La primera
+Se reproduce con `node --experimental-strip-types guiones/medir-agente.ts`
+(necesita el CLI instalado y una licencia activa; gasta unos céntimos).
+
+**Si falta ese archivo, la demo no se inventa nada: se para.** La primera
 versión llevaba los tokens escritos a mano como «consumo plausible»; todo lo
-demás era real, pero eso convertía una demo honesta en una que lo parecía.
+demás era real, y eso era justo lo que lo hacía peor.
 
 ### Lo que se comprueba antes de dar por bueno un pago
 
@@ -233,8 +240,8 @@ exactamente lo que tardó en salir, así que el ritmo del vídeo es el del
 programa.
 
 La transacción que aparece dentro se firmó durante esa grabación:
-[`042b73def30ea1bfc52c36362e7248045ea2d7f23e3ade936ea59ce830f55463`](https://stellar.expert/explorer/testnet/tx/042b73def30ea1bfc52c36362e7248045ea2d7f23e3ade936ea59ce830f55463)
-· 0,0066969 · comisión 0,00001 · **669 veces menor que el propio cobro**.
+[`e97b9eb83415372b76d152197e5fdd3d7605b44ca6fa81b88be47c5fd3fadd54`](https://stellar.expert/explorer/testnet/tx/e97b9eb83415372b76d152197e5fdd3d7605b44ca6fa81b88be47c5fd3fadd54)
+· 0,0108289 · comisión 0,00001 · **1.083 veces menor que el propio cobro**.
 
 Se regenera con `node --experimental-strip-types guiones/grabar.ts`, y cada
 ejecución produce una transacción nueva y comprobable.
