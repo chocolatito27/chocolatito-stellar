@@ -196,11 +196,17 @@ async function main(): Promise<void> {
     "tabla del total por mes y el total general. No preguntes, hazlo.";
   console.log(`Lanzando Chocolatito Code de verdad:\n  "${orden}"\n`);
 
+  // Se CAPTURA la terminal del agente, no solo se deja pasar. Sin esto el
+  // video enseñaba los numeros del agente pero no al agente: la critica era
+  // justa. Ahora lo que se ve trabajando es el CLI de verdad.
+  const t0 = Date.now();
+  const pantalla: Array<{ texto: string; cuando: number }> = [];
+
   const codigo = await new Promise<number>((listo) => {
     const hijo = spawn(CLI, ["-y", orden], {
       cwd: TALLER,
       shell: true,
-      stdio: "inherit",
+      stdio: ["ignore", "pipe", "pipe"],
       // CHOCOLATITO_ENGINE_URL y no CHOCOLATITO_PROXY_URL: la segunda solo fija
       // el valor POR DEFECTO del modo suscripcion, y `engineUrl` del
       // ~/.chocolatitorc le gana. La primera se mira antes que nada y manda
@@ -208,10 +214,25 @@ async function main(): Promise<void> {
       // —hablando con el proxy real— y aqui no se mide nada.
       env: { ...process.env, CHOCOLATITO_ENGINE_URL: `http://localhost:${PUERTO}/v1`, CHOCOLATITO_PANTALLA: "normal" },
     });
+    const apuntar = (b: Buffer) => {
+      const texto = b.toString("utf8");
+      pantalla.push({ texto, cuando: Date.now() - t0 });
+      process.stdout.write(texto);
+    };
+    hijo.stdout.on("data", apuntar);
+    hijo.stderr.on("data", apuntar);
     hijo.on("close", (c) => listo(c ?? 1));
   });
 
   servidor.close();
+  await fs.mkdir(path.join(RAIZ, "video"), { recursive: true });
+  await fs.writeFile(
+    path.join(RAIZ, "video", "captura-agente.json"),
+    JSON.stringify(pantalla),
+    "utf8"
+  );
+  console.log(`
+Terminal del agente capturada: ${pantalla.length} momentos.`);
   console.log(`\nEl agente terminó con código ${codigo}. ${capturado.length} llamadas medidas.`);
 
   if (capturado.length === 0) {

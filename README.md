@@ -233,11 +233,20 @@ proyecto presentado no participa de ese flujo.
 [`video/demo-chocolatito-stellar.mp4`](video/demo-chocolatito-stellar.mp4) —
 1920×1080, 68 s.
 
-**No es una captura de pantalla ni una recreación.** Se genera ejecutando
-`demo.ts` de verdad, capturando su salida con los tiempos reales a los que va
-apareciendo y volviéndola a dibujar como terminal. Cada fotograma dura
-exactamente lo que tardó en salir, así que el ritmo del vídeo es el del
-programa.
+**Va en dos tramos, y el primero es el que importa:**
+
+1. **Chocolatito Code trabajando de verdad.** Se ve su banner, la orden, cómo
+   lista la carpeta, abre las ocho facturas una a una y escribe `balance.md`.
+   Es el CLI instalado, ejecutándose — no una recreación.
+2. **El cobro de ese trabajo**: se mide, se firma y se verifica en la cadena.
+
+**No es una captura de pantalla.** Se ejecutan los dos programas de verdad,
+se captura su salida con los tiempos reales a los que va apareciendo, y se
+vuelve a dibujar como terminal. Cada fotograma dura exactamente lo que tardó
+en salir, así que el ritmo del vídeo es el de los programas.
+
+La primera versión solo tenía el segundo tramo: se veían las cifras del agente
+pero no se le veía a él. Faltaba justo lo que había que enseñar.
 
 La transacción que aparece dentro se firmó durante esa grabación:
 [`e97b9eb83415372b76d152197e5fdd3d7605b44ca6fa81b88be47c5fd3fadd54`](https://stellar.expert/explorer/testnet/tx/e97b9eb83415372b76d152197e5fdd3d7605b44ca6fa81b88be47c5fd3fadd54)
