@@ -1,5 +1,10 @@
 # Cómo grabar el video demo
 
+> **Hay un MP4 en `video/` y NO sirve como entrega.** Es una reconstrucción:
+> el texto y los tiempos son reales, pero los píxeles los redibuja Chrome, no
+> salen de una pantalla. Para el jurado hace falta una captura de verdad —lo
+> que explica esta página— y son 90 segundos de trabajo.
+
 **Este es el que evalúa el jurado.** Las bases lo dicen con estas palabras:
 
 > «Muestra el producto funcionando (no solo diapositivas). Sin límite de

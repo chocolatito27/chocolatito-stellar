@@ -233,20 +233,34 @@ proyecto presentado no participa de ese flujo.
 [`video/demo-chocolatito-stellar.mp4`](video/demo-chocolatito-stellar.mp4) —
 1920×1080, 68 s.
 
-**Va en dos tramos, y el primero es el que importa:**
+**QUÉ ES Y QUÉ NO ES ESTE ARCHIVO**
 
-1. **Chocolatito Code trabajando de verdad.** Se ve su banner, la orden, cómo
-   lista la carpeta, abre las ocho facturas una a una y escribe `balance.md`.
-   Es el CLI instalado, ejecutándose — no una recreación.
+No es una grabación de pantalla. **Es una reconstrucción**, y conviene saber
+exactamente qué parte es real:
+
+| | |
+|---|---|
+| Los dos programas se ejecutaron de verdad | **Sí** — `balance.md` lo escribió el agente |
+| El texto es su salida, carácter por carácter | **Sí** |
+| Los tiempos son los que tardó de verdad | **Sí** — cada fotograma dura lo medido |
+| **Los píxeles salen de una pantalla** | **No.** Chrome redibuja cada fotograma desde HTML y ffmpeg los une |
+
+Se hizo así para que no salieran el escritorio, las notificaciones ni el
+tamaño de letra de nadie, y para poder regenerarlo con un comando. Pero **una
+reconstrucción no es una grabación**, por fiel que sea el texto.
+
+**Para entregar al jurado conviene una captura de pantalla de verdad**, que
+son 90 segundos con `Win + G`: ver [DEMO.md](DEMO.md). Este archivo sirve como
+respaldo y como material para el vídeo pitch.
+
+**Va en dos tramos:**
+
+1. **Chocolatito Code trabajando**: su banner, la orden, cómo lista la
+   carpeta, abre las ocho facturas y escribe `balance.md`.
 2. **El cobro de ese trabajo**: se mide, se firma y se verifica en la cadena.
 
-**No es una captura de pantalla.** Se ejecutan los dos programas de verdad,
-se captura su salida con los tiempos reales a los que va apareciendo, y se
-vuelve a dibujar como terminal. Cada fotograma dura exactamente lo que tardó
-en salir, así que el ritmo del vídeo es el de los programas.
-
 La primera versión solo tenía el segundo tramo: se veían las cifras del agente
-pero no se le veía a él. Faltaba justo lo que había que enseñar.
+pero no se le veía a él.
 
 La transacción que aparece dentro se firmó durante esa grabación:
 [`e97b9eb83415372b76d152197e5fdd3d7605b44ca6fa81b88be47c5fd3fadd54`](https://stellar.expert/explorer/testnet/tx/e97b9eb83415372b76d152197e5fdd3d7605b44ca6fa81b88be47c5fd3fadd54)
