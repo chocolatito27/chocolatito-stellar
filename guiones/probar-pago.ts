@@ -17,7 +17,7 @@ console.log("fondeadas con Friendbot");
 const COSTE_USD = 0.0041;
 console.log(`\ncoste medido: ${COSTE_USD} USD  ->  ${importeStellar(COSTE_USD)} XLM`);
 
-const r = await liquidar(agente, cobro.publica, COSTE_USD, "42f5ae22-ec4a-4d0c-bb2c-cc6e7b8ddb5f");
+const r = await liquidar(agente, cobro.publica, COSTE_USD, "LIC-DEMO-0001-0002-0003");
 console.log("\nLIQUIDADO");
 console.log("  hash  :", r.hash);
 console.log("  memo  :", r.memo);

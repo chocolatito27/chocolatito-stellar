@@ -134,7 +134,7 @@ Chocolatito:
 | Cuenta del agente | `GBBS2QRWNCNC7T4J7IHA6M4OO5TSB56OJ25C3JGZWJXCJEKYRDCBMY4Y` |
 | Cuenta de cobro | `GBGN5VOQ5ANM5H5TI3TXFRZSNNKO3ONCS5TA6TYAEOZQYY3LLIGOSYW3` |
 | Importe | 0,0041 — el coste medido de una tarea |
-| Memo | `cc:42f5ae22` (atribución a la licencia) |
+| Memo | `cc:LIC-DEMO` (atribución a la licencia) |
 | Comisión de red | **100 stroops = 0,00001** |
 | Fecha | 2026-09-22 22:45:37 UTC |
 
@@ -211,7 +211,7 @@ no se ha hecho todavía y no lo contamos como hecho.
 | [`@stellar/stellar-sdk`](https://github.com/stellar/js-stellar-sdk) 13.3.0 | Apache-2.0 | Construir y firmar las transacciones en el cliente |
 | [Horizon](https://developers.stellar.org/docs/data/apis/horizon) (testnet) | servicio público de la SDF | Consultar la cadena para verificar los pagos |
 | [Friendbot](https://developers.stellar.org/docs/build/guides/basics/create-account) | servicio público de la SDF | Fondear las cuentas de prueba |
-| Lemon Squeezy | servicio comercial | **Preexistente**, no forma parte de lo presentado. Emite las licencias del producto; aquí solo se usa el prefijo de la clave como `memo` para atribuir cada pago. |
+| Lemon Squeezy | servicio comercial | **Preexistente**, no forma parte de lo presentado. Emite las licencias del producto; aquí solo se usaría el prefijo de la clave como `memo` para atribuir cada pago. **En este repositorio no hay ninguna licencia real**: los guiones usan un identificador de ejemplo. |
 
 Apache-2.0 es compatible con la licencia MIT de este repositorio.
 

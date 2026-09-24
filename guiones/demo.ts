@@ -40,7 +40,19 @@ const titulo = (n: number, t: string) => {
   linea(`${GRIS}  ${"─".repeat(64)}${N}`);
 };
 
-const LICENCIA = "42f5ae22-ec4a-4d0c-bb2c-cc6e7b8ddb5f";
+/**
+ * Licencia DE EJEMPLO. Aqui no entra ninguna de verdad.
+ *
+ * Antes habia un identificador real del checkout del producto. No era
+ * secreto -esta en el boton de compra de la web publica- pero el codigo lo
+ * llamaba LICENCIA, y en un repositorio abierto eso invita a pensar que hay
+ * una credencial dentro. No la hay, y ahora tampoco lo parece.
+ *
+ * Solo se usa para el `memo`, que lleva los 8 primeros caracteres para
+ * atribuir el pago sin publicar la clave entera en una cadena que cualquiera
+ * puede leer.
+ */
+const LICENCIA = "LIC-DEMO-0001-0002-0003";
 
 /**
  * EL CONSUMO SALE DE UN ARCHIVO, Y ESE ARCHIVO SALE DEL MOTOR DE VERDAD.
