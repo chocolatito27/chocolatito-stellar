@@ -96,17 +96,25 @@ declaramos abiertamente, como exigen las bases.
 
 **Lo que ya existía**, y por tanto **no se presenta a evaluación**:
 
-- **Chocolatito Code** — agente de IA para terminal, publicado en npm.
-  Commit base: [`0edf57f`](https://github.com/chocolatito27/chocolatito-code/commit/0edf57f4c2c2319b6f9a5cfbf54673ebca140fe4)
-  (versión 1.6.44, **18 sep 2026 22:34 PET** — anterior al inicio de la ventana
-  de desarrollo, el 19 sep a las 09:00).
+- **Chocolatito Code** — agente de IA para terminal. La prueba de que existía
+  antes **es pública y tiene fecha**:
+  [`chocolatito-code@1.6.43` en npm](https://www.npmjs.com/package/chocolatito-code/v/1.6.43),
+  publicada el **17 sep 2026 a las 23:35 UTC** — dos días antes de que abriera
+  la ventana de desarrollo, el 19 sep a las 09:00 PET. El registro de npm da fe
+  de esa fecha, no nosotros.
+
+  Su repositorio es privado, así que se deja el commit correspondiente para el
+  acta —`0edf57f4c2c2319b6f9a5cfbf54673ebca140fe4`, de la 1.6.44— pero **no se
+  enlaza**: un enlace que el jurado no puede abrir no prueba nada, y peor aún
+  parece que sí.
 - **El proxy de cuota** — un Worker de Cloudflare que valida licencias y mide el
   coste en dólares de cada llamada al modelo (`costeDe()` sobre el `usage` que
   devuelve el motor, descontando los aciertos de caché).
 
 **Lo que se construye dentro de la ventana**, y es lo único que pedimos que se
-evalúe: **todo el contenido de este repositorio**, creado desde cero el 22 sep
-2026. Es decir, la capa de pagos: firma en el cliente, liquidación por tarea,
+evalúe: **todo el contenido de este repositorio**, desde su primer commit
+[`f955663`](https://github.com/chocolatito27/chocolatito-stellar/commit/f9556639be06f79310ed232f9dcc3ef006c4851c)
+del 22 sep 2026. Es decir, la capa de pagos: firma en el cliente, liquidación por tarea,
 verificación contra Horizon y el enganche con el medidor que ya existía.
 
 Se eligió un repositorio nuevo, y no una rama del producto, precisamente para
