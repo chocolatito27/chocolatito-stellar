@@ -63,23 +63,22 @@ construyendo.»*
 
 ## Si hay que volver a grabarlo
 
-En una terminal aparte, el medidor, que prepara la carpeta y se queda midiendo:
+Una orden, en PowerShell, desde la raíz del repositorio:
 
-```bash
-node --experimental-strip-types guiones/medir-agente.ts --interactivo \
-  --carpeta facturas-enero-marzo-2026 \
-  --orden "Lee todas las facturas .txt de esta carpeta y escribe balance.md con una tabla del total por mes y el total general. No preguntes, hazlo."
+```powershell
+powershell -ExecutionPolicy Bypass -File guiones\grabar-en-terminal.ps1
 ```
 
-En la terminal que se graba, con `CHOCOLATITO_ENGINE_URL=http://localhost:4791/v1`
-puesta y dentro de `facturas-enero-marzo-2026`:
+Arranca el medidor, abre Windows Terminal a pantalla completa en
+`facturas-enero-marzo-2026`, teclea `chocolatito`, le escribe la orden, espera
+a que termine, sale con `/exit`, lanza `npm run demo` y graba todo con ffmpeg.
+Al acabar deja Terminal como estaba. Con `-Ensayo` hace lo mismo sin grabar y
+sin darle la orden al agente, así que no gasta nada: sirve para comprobar que
+todo responde. **Mientras corre no hay que tocar ni el ratón ni el teclado.**
 
-1. `chocolatito`, y escribirle la misma orden que se le pasó al medidor.
-2. Cuando termine, `/exit`.
-3. `cd ..` y `npm run demo`.
-
-El agente gasta unos centavos de la licencia, y **las cifras cambian un poco**
-en cada ejecución: hay que repasar después el README y el guion del pitch.
+El video sale en `%TEMP%\chocolatito-grabacion\demo-en-terminal.mkv`. El
+agente gasta unos centavos de la licencia, y **las cifras cambian un poco** en
+cada ejecución: hay que repasar después el README y el guion del pitch.
 
 Antes de grabar, una pasada sin pausas para comprobar que la testnet responde
 y que el DEX tiene ruta entre XLM y USDC:

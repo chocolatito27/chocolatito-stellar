@@ -306,7 +306,9 @@ le daba la orden, se salía con `/exit` y se lanzaba `npm run demo`.
 Lo que se ve escrito lo escribió un guion, letra a letra, con el mismo mecanismo
 que usa un teclado (`SendInput` de Windows), para que la toma saliera limpia. Ni
 el agente ni la demo pueden distinguirlo de alguien tecleando; lo decimos para
-que nadie tenga que suponerlo.
+que nadie tenga que suponerlo. El guion está en el repositorio,
+[`guiones/grabar-en-terminal.ps1`](guiones/grabar-en-terminal.ps1): ahí se ve
+exactamente qué se tecleó y cuándo.
 
 | Tramo | Qué se ve |
 |---|---|
@@ -368,6 +370,7 @@ no las hay, la demo se para diciendo que no hay ruta: no se inventa un precio.
 | `npm run probar` | El verificador: que no carga el SDK, que el pago bueno pasa y que los seis fraudes se rechazan cada uno por su motivo. **Sale con error** si algo no cuadra. Necesita red y tarda un minuto. |
 | `npm run tipos` | Comprueba los tipos de todo `src/` y `guiones/`. |
 | `guiones/medir-agente.ts` | Vuelve a medir al agente de verdad: con una orden, o con `--interactivo` mientras se usa en su terminal. Necesita el CLI y una licencia, y gasta unos centavos. |
+| `guiones/grabar-en-terminal.ps1` | Graba la demo como en el video: abre el agente en una terminal, le escribe la orden, sale y cobra la tarea. Con `-Ensayo` lo prueba sin grabar ni gastar nada. |
 | `guiones/grabar.ts` | Reconstruye la demo como video a partir de su salida real. Ya no es el video que se entrega: ese es una grabación de pantalla. |
 
 Ver también [DEMO.md](DEMO.md) (cómo se graba) y [PITCH.md](PITCH.md) (guion de
