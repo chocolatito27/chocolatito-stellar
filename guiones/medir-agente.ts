@@ -30,8 +30,19 @@ const TALLER = path.join(DATOS, "taller");
 const ARRIBA = "https://chocolatito-proxy.chocolatito.workers.dev/v1";
 const PUERTO = 4791;
 
-/** Lo que el CLI trae instalado. Se mide el producto, no una copia. */
-const CLI = path.join(process.env.APPDATA ?? "", "npm", "chocolatito.cmd");
+/**
+ * Lo que el CLI trae instalado. Se mide el producto, no una copia.
+ *
+ * Se lanza su JS con este mismo `node`, que es justo lo que hace el
+ * `chocolatito.cmd` que instala npm, y no el `.cmd`: un `.cmd` solo arranca
+ * con `shell: true`, y ahí los argumentos se pegan sin escapar. Node 24 lo
+ * avisa por pantalla (DEP0190), y el aviso salió en la grabación de la demo.
+ */
+const PAQUETE = path.join(process.env.APPDATA ?? "", "npm", "node_modules", "chocolatito-code");
+const { bin } = JSON.parse(await fs.readFile(path.join(PAQUETE, "package.json"), "utf8")) as {
+  bin: Record<string, string>;
+};
+const CLI = path.join(PAQUETE, bin["chocolatito"] ?? "dist/index.js");
 
 interface Vuelta {
   etiqueta: string;
@@ -203,9 +214,8 @@ async function main(): Promise<void> {
   const pantalla: Array<{ texto: string; cuando: number }> = [];
 
   const codigo = await new Promise<number>((listo) => {
-    const hijo = spawn(CLI, ["-y", orden], {
+    const hijo = spawn(process.execPath, [CLI, "-y", orden], {
       cwd: TALLER,
-      shell: true,
       stdio: ["ignore", "pipe", "pipe"],
       // CHOCOLATITO_ENGINE_URL y no CHOCOLATITO_PROXY_URL: la segunda solo fija
       // el valor POR DEFECTO del modo suscripcion, y `engineUrl` del
