@@ -6,11 +6,11 @@
  *
  * POR QUÉ ASÍ Y NO CON UN GRABADOR DE PANTALLA
  *
- * Lo que se ve en el vídeo ES la salida del programa, no una recreación: la
- * transacción que aparece al final se firmó durante esta grabación y se puede
- * comprobar en el explorador. Lo único que cambia respecto a grabar la pantalla
- * es que no salen el escritorio, las notificaciones ni el tamaño de letra que
- * cada uno tenga puesto.
+ * El texto es la salida real del programa, con los tiempos reales a los que fue
+ * apareciendo. Lo que NO es real es la pantalla: se redibuja como una terminal
+ * en vez de filmarla, y por eso el README la llama reconstrucción y no
+ * grabación. La transacción que aparece al final sí se firmó durante esta
+ * ejecución y se puede comprobar en el explorador.
  *
  * Y como cada fotograma dura exactamente lo que tardó en aparecer, el ritmo del
  * vídeo es el ritmo real del programa.
@@ -205,11 +205,14 @@ async function main(): Promise<void> {
 
   // Puppeteer no es dependencia de este proyecto: se toma prestado del
   // repositorio del producto, que ya lo tenía. Es una herramienta para grabar
-  // el vídeo, no parte de lo que se entrega, así que no ensucia el package.json
-  // ni la declaración de terceros del README.
-  const modulo = await import(
-    "file:///C:/Users/Ryzen/Documents/tomas/chocolatito-code/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js"
-  );
+  // el vídeo, no parte de lo que se entrega, así que no ensucia el package.json.
+  // Sí va en la declaración de terceros del README: lo usa código de aquí.
+  //
+  // La ruta va en una variable a propósito: con el texto dentro de `import()`,
+  // el comprobador de tipos intenta resolverla, no encuentra sus tipos y falla.
+  const RUTA_PUPPETEER =
+    "file:///C:/Users/Ryzen/Documents/tomas/chocolatito-code/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js";
+  const modulo: unknown = await import(RUTA_PUPPETEER);
   const puppeteer = (modulo as { default?: unknown }).default ?? modulo;
   const navegador = await (puppeteer as {
     launch: (o: unknown) => Promise<{ newPage: () => Promise<any>; close: () => Promise<void> }>;

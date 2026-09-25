@@ -1,12 +1,13 @@
 {
   "name": "chocolatito-stellar",
   "version": "0.1.0",
-  "description": "Un agente de IA que firma, por cada tarea, el pago exacto de lo que esa tarea costo, en Stellar.",
+  "description": "Un agente de IA que firma, por cada tarea, el pago exacto de lo que esa tarea costo: en USDC sobre Stellar testnet.",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "construir": "tsc",
-    "probar": "node --test --experimental-strip-types pruebas/*.test.ts"
+    "demo": "node --experimental-strip-types guiones/demo.ts",
+    "probar": "node --experimental-strip-types guiones/probar-verificacion.ts",
+    "tipos": "tsc -p ."
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^13.1.0"
