@@ -296,7 +296,9 @@ proyecto presentado no participa de ese flujo.
 ### La demo, grabada de verdad
 
 [`video/demo-chocolatito-stellar.mp4`](video/demo-chocolatito-stellar.mp4) —
-1920×1080, 2 min 29 s.
+1920×1080, 2 min 29 s. En YouTube, con una tarjeta de entrada, rótulos debajo
+de la terminal y una tarjeta de cierre añadidos al editar (la toma, la misma):
+**https://youtu.be/xIyeMhX-L9A**.
 
 **Es una grabación de la pantalla, en una sola toma y sin cortes**, del 24 sep a
 las 22:35 PET. `ffmpeg` capturó la pantalla entera (`gdigrab`, 2560×1440 a 30
@@ -332,6 +334,15 @@ producto como lo usa cualquiera.
 Hasta el 24 sep, el video del repositorio era una **reconstrucción**: la salida
 real de los programas, redibujada fotograma a fotograma por `guiones/grabar.ts`.
 Se ha sustituido por la grabación de verdad.
+
+### El pitch
+
+**https://youtu.be/c1AMS_u7iKw** — 2 min 54 s.
+
+Es [PITCH.md](PITCH.md) palabra por palabra, narrado con **voces sintéticas**
+(voces neuronales de Microsoft en español de Perú, una por bloque). Los
+fragmentos de la demo que aparecen son de la grabación real, sin acelerar. Los
+guiones que hicieron los dos videos están en [`video/fuentes/`](video/fuentes/).
 
 ### El agente en su interfaz web
 

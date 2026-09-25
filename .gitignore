@@ -21,3 +21,11 @@ datos/taller/
 
 # La carpeta donde trabaja el agente en la grabacion interactiva: se crea sola.
 facturas-enero-marzo-2026/
+
+# Lo que generan los guiones de video/fuentes al montar: se rehace con ellos.
+video/fuentes/*.png
+video/fuentes/*.wav
+video/fuentes/*.mp3
+video/fuentes/*.mp4
+video/fuentes/linea.json
+video/fuentes/piezas.txt

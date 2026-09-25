@@ -7,8 +7,11 @@
 > | `demo-chocolatito-stellar.mp4` | **El que se entrega.** Una sola toma: se abre Chocolatito Code en la terminal, se le da la orden, trabaja, y a continuación se cobra esa tarea en Stellar. 1920×1080, 2:29. |
 > | `agente-navegador.mp4` | El agente trabajando en su interfaz web (`--servir`). 9 s. |
 >
-> El máster en 2560×1440, para editar, está fuera del repositorio:
+> El máster en 2560×1440 está fuera del repositorio:
 > `chocolatito-demo-en-vivo-1440p.mp4`, en la carpeta Videos de Tomás.
+>
+> **La versión editada, con rótulos, está en YouTube: https://youtu.be/xIyeMhX-L9A**
+> (oculto: la ve quien tenga el enlace).
 
 **Este es el que evalúa el jurado.** Las bases lo dicen con estas palabras:
 

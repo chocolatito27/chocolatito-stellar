@@ -1,0 +1,13 @@
+[
+  { "desde": 0.0,   "hasta": 8.0,   "fase": "EL AGENTE",       "texto": "Abrimos Chocolatito Code en una carpeta con 8 facturas" },
+  { "desde": 8.0,   "hasta": 25.6,  "fase": "EL AGENTE",       "texto": "Le damos una tarea real: leer las facturas y escribir un balance" },
+  { "desde": 25.6,  "hasta": 38.5,  "fase": "EL AGENTE",       "texto": "Trabaja solo, y cada llamada al modelo se mide al vuelo" },
+  { "desde": 38.5,  "hasta": 56.5,  "fase": "EL COBRO",        "texto": "Tarea hecha en 13 segundos. Ahora hay que cobrarla" },
+  { "desde": 56.5,  "hasta": 72.0,  "fase": "EL COBRO",        "texto": "El agente tiene su propia cartera: la clave no sale del equipo" },
+  { "desde": 72.0,  "hasta": 80.0,  "fase": "EL COBRO",        "texto": "El cobro acepta USDC de Circle, reconocido por su emisor" },
+  { "desde": 80.0,  "hasta": 94.0,  "fase": "EL COBRO",        "texto": "Lo que costaron esas 4 llamadas, con el descuento de caché" },
+  { "desde": 94.0,  "hasta": 105.5, "fase": "EL PAGO",         "texto": "Paga en XLM y el cobro recibe USDC exacto, en una transacción" },
+  { "desde": 105.5, "hasta": 123.0, "fase": "LA VERIFICACIÓN", "texto": "El verificador no se fía del agente: mira el pago en la cadena" },
+  { "desde": 123.0, "hasta": 132.5, "fase": "LA VERIFICACIÓN", "texto": "6 intentos de colar un pago falso: todos rechazados" },
+  { "desde": 132.5, "hasta": 148.9, "fase": "COMPRUÉBALO",     "texto": "Compruébalo tú: la transacción está en el explorador de Stellar" }
+]

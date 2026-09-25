@@ -1,0 +1,263 @@
+[
+ {
+  "bloque": 1,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Una tarea de inteligencia artificial cuesta un centavo.",
+  "visual": {
+   "tipo": "cifra",
+   "etiqueta": "EL PROBLEMA",
+   "grande": "1¢",
+   "pie": "lo que cuesta una tarea de IA"
+  }
+ },
+ {
+  "bloque": 1,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Cobrarla con tarjeta cuesta treinta.",
+  "visual": {
+   "tipo": "cifra",
+   "etiqueta": "EL PROBLEMA",
+   "grande": "30¢",
+   "pie": "la comisión fija de una tarjeta, solo por cobrarla",
+   "acento": true
+  }
+ },
+ {
+  "bloque": 1,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Por eso nadie cobra por tarea: todo el mundo te vende una suscripción mensual. Pagas diecisiete dólares al mes, uses lo que uses. Si gastaste cuarenta centavos, pagas diecisiete igual.",
+  "visual": {
+   "tipo": "cifra",
+   "etiqueta": "EL PROBLEMA",
+   "grande": "US$ 16.99 / mes",
+   "pie": "uses lo que uses: si gastaste 40 centavos, pagas lo mismo"
+  }
+ },
+ {
+  "bloque": 1,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Nosotros vendemos esa suscripción, y sabemos exactamente cuánto nos cuesta atenderte, porque lo medimos en cada llamada.",
+  "visual": {
+   "tipo": "web",
+   "etiqueta": "CHOCOLATITO.SPACE",
+   "url": "https://chocolatito.space",
+   "pie": "Chocolatito ya se vende por suscripción. Y medimos el coste de cada llamada."
+  }
+ },
+ {
+  "bloque": 2,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Chocolatito es un agente de IA que trabaja sobre tus archivos: lee facturas, ordena carpetas, escribe informes. Ya está a la venta.",
+  "visual": {
+   "tipo": "fotograma",
+   "etiqueta": "EL PRODUCTO",
+   "t": 10.5,
+   "pie": "Chocolatito Code, en la terminal"
+  }
+ },
+ {
+  "bloque": 2,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Cada tarea que hace tiene un coste exacto en dólares, y lo calculamos desde antes de esta hackathon.",
+  "visual": {
+   "tipo": "fotograma",
+   "etiqueta": "EL PRODUCTO",
+   "t": 93,
+   "pie": "el coste de cada llamada al modelo, medido"
+  }
+ },
+ {
+  "bloque": 2,
+  "voz": "es-PE-AlexNeural",
+  "texto": "El problema nunca fue medir. Fue cobrar: con tarjeta, una tarea de un centavo no se puede cobrar.",
+  "visual": {
+   "tipo": "frase",
+   "etiqueta": "EL PROBLEMA",
+   "texto": "El problema nunca fue medir.",
+   "texto2": "Fue cobrar."
+  }
+ },
+ {
+  "bloque": 3,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Hasta que lo pones sobre Stellar.",
+  "visual": {
+   "tipo": "frase",
+   "etiqueta": "LO QUE CONSTRUIMOS",
+   "texto": "Hasta que lo pones",
+   "texto2": "sobre Stellar."
+  }
+ },
+ {
+  "bloque": 3,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Lo que hicimos en esta hackathon es que el agente se pague solo. Termina una tarea, sabe lo que costó, y firma ese pago en tu propia computadora, con una clave que nunca sale de ahí.",
+  "visual": {
+   "tipo": "pasos",
+   "etiqueta": "LO QUE CONSTRUIMOS",
+   "titulo": "El agente se paga solo",
+   "pasos": [
+    "Termina la tarea",
+    "Sabe lo que costó",
+    "Firma el pago en tu computadora"
+   ],
+   "nota": "La clave nunca sale de ahí."
+  }
+ },
+ {
+  "bloque": 3,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Paga en XLM, y nosotros recibimos dólares exactos, en USDC de Circle: el intercambio de Stellar convierte dentro de la misma transacción, y el agente firma un tope para que el precio no se le mueva.",
+  "visual": {
+   "tipo": "flujo",
+   "etiqueta": "LO QUE CONSTRUIMOS",
+   "titulo": "Un solo pago, dos monedas",
+   "cajas": [
+    "El agente paga en XLM",
+    "El DEX de Stellar convierte",
+    "Llega USDC exacto"
+   ],
+   "nota": "Una sola transacción · el agente firma un tope de XLM"
+  }
+ },
+ {
+  "bloque": 3,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Del otro lado, nuestro verificador no se fía del agente. Va a la cadena y comprueba cinco cosas: que la transacción existe, que nos paga a nosotros, que el memo es de su licencia, que es el USDC de Circle —por quién lo emite, porque cualquiera puede inventarse uno—, y que cubre la deuda.",
+  "visual": {
+   "tipo": "lista",
+   "etiqueta": "LO QUE CONSTRUIMOS",
+   "titulo": "El verificador no se fía: mira la cadena",
+   "items": [
+    "La transacción existe",
+    "Nos paga a nosotros",
+    "El memo es de su licencia",
+    "Es el USDC de Circle, por su emisor",
+    "Cubre la deuda"
+   ]
+  }
+ },
+ {
+  "bloque": 4,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Esto es una tarea real: «lee las facturas de esta carpeta y escribe un balance». Chocolatito Code la hizo de verdad: abrió ocho facturas y escribió el archivo.",
+  "visual": {
+   "tipo": "clip",
+   "etiqueta": "LA DEMO · GRABACIÓN REAL",
+   "tramos": [
+    [
+     27.1,
+     38.9
+    ]
+   ]
+  }
+ },
+ {
+  "bloque": 4,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Cuatro vueltas, cada una medida. Al cerrar, un solo pago de un centavo, firmado y en la cadena.",
+  "visual": {
+   "tipo": "clip",
+   "etiqueta": "LA DEMO · GRABACIÓN REAL",
+   "tramos": [
+    [
+     85.3,
+     90.2
+    ],
+    [
+     101.6,
+     105.1
+    ]
+   ]
+  }
+ },
+ {
+  "bloque": 4,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Luego, seis intentos de colar un pago falso, incluido uno con un USDC inventado. Los seis, rechazados.",
+  "visual": {
+   "tipo": "clip",
+   "etiqueta": "LA DEMO · GRABACIÓN REAL",
+   "tramos": [
+    [
+     123.3,
+     133.2
+    ]
+   ]
+  }
+ },
+ {
+  "bloque": 4,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Y el número que lo resume: con tarjeta, la comisión habría sido veintinueve veces lo cobrado. En Stellar fue una décima parte del uno por ciento.",
+  "visual": {
+   "tipo": "comparacion",
+   "etiqueta": "EL NÚMERO",
+   "izq": [
+    "29×",
+    "lo cobrado: la comisión de una tarjeta"
+   ],
+   "der": [
+    "0.1 %",
+    "la comisión de red en Stellar"
+   ]
+  }
+ },
+ {
+  "bloque": 5,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Lo que es de verdad y lo que no: esto es testnet, con el USDC de pruebas de Circle. El pago lo firma una capa que corre al lado del agente, todavía no dentro. Y el verificador no está conectado a nuestro servidor de producción, a propósito: ese cobra de verdad.",
+  "visual": {
+   "tipo": "lista",
+   "etiqueta": "LO QUE ES DE VERDAD, Y LO QUE NO",
+   "titulo": "Sin maquillar",
+   "items": [
+    "Testnet, con el USDC de pruebas de Circle",
+    "El pago lo firma una capa al lado del agente: todavía no va dentro",
+    "El verificador no está en el servidor de producción, a propósito"
+   ]
+  }
+ },
+ {
+  "bloque": 5,
+  "voz": "es-PE-CamilaNeural",
+  "texto": "Chocolatito existía antes y lo declaramos: lo que presentamos es solo la capa de pagos.",
+  "visual": {
+   "tipo": "frase",
+   "etiqueta": "DECLARADO",
+   "texto": "Chocolatito existía antes.",
+   "texto2": "Presentamos solo la capa de pagos.",
+   "pie": "chocolatito-code 1.6.43 en npm, publicado el 17 sep, antes de la hackathon"
+  }
+ },
+ {
+  "bloque": 6,
+  "voz": "es-PE-AlexNeural",
+  "texto": "No es una idea: es un producto que ya se vende, con la forma de cobrar que le estamos construyendo.",
+  "visual": {
+   "tipo": "frase",
+   "etiqueta": "EL CIERRE",
+   "texto": "No es una idea.",
+   "texto2": "Es un producto que ya se vende."
+  }
+ },
+ {
+  "bloque": 6,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Tu agente tiene cartera propia y paga sus propias facturas.",
+  "visual": {
+   "tipo": "frase",
+   "etiqueta": "EL CIERRE",
+   "texto": "Tu agente tiene cartera propia",
+   "texto2": "y paga sus propias facturas."
+  }
+ },
+ {
+  "bloque": 6,
+  "voz": "es-PE-AlexNeural",
+  "texto": "Gracias.",
+  "visual": {
+   "tipo": "final"
+  }
+ }
+]
