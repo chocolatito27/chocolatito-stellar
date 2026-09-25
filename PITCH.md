@@ -73,7 +73,7 @@ se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 > Luego, seis intentos de colar un pago falso, incluido uno con un USDC
 > inventado. Los seis, rechazados.
 >
-> **Y el número que lo resume: con tarjeta, la comisión habría sido veintiocho
+> **Y el número que lo resume: con tarjeta, la comisión habría sido veintinueve
 > veces lo cobrado. En Stellar fue una décima parte del uno por ciento.**
 
 *(Se ve: la demo corriendo, y el enlace al explorador.)*
@@ -110,7 +110,7 @@ se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 - Graben en un sitio sin eco. Un celular a medio metro suena mejor que una
   laptop a dos.
 - Mejor dos voces que una: alternen quién habla en cada bloque.
-- Los números se dicen despacio. «Veintiocho veces» es el dato que tiene
+- Los números se dicen despacio. «Veintinueve veces» es el dato que tiene
   que quedarse; si se dice rápido, se pierde.
 - Las cifras son las del video de la demo, grabado el 24 sep (README,
   «Evidencia on-chain»). Si se vuelve a grabar, el agente trabaja otra vez y el

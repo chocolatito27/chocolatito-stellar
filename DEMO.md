@@ -4,7 +4,7 @@
 >
 > | Archivo | Qué es |
 > |---|---|
-> | `demo-chocolatito-stellar.mp4` | **El que se entrega.** Una sola toma: el agente haciendo la tarea y, a continuación, el cobro de esa tarea en Stellar. 1920×1080, 1:57. |
+> | `demo-chocolatito-stellar.mp4` | **El que se entrega.** Una sola toma: se abre Chocolatito Code en la terminal, se le da la orden, trabaja, y a continuación se cobra esa tarea en Stellar. 1920×1080, 2:29. |
 > | `agente-navegador.mp4` | El agente trabajando en su interfaz web (`--servir`). 9 s. |
 >
 > El máster en 2560×1440, para editar, está fuera del repositorio:
@@ -27,20 +27,23 @@ aproximados, ±3 segundos.
 
 | Minuto | Qué sale | Qué decir encima |
 |---|---|---|
-| **0:00** | Chocolatito Code recibe la orden, lista la carpeta, abre las ocho facturas y escribe `balance.md` | «Esto es Chocolatito Code haciendo una tarea de verdad. Cada vez que consulta al modelo, se mide lo que consumió.» |
-| **0:23** | Se crean las cuentas y se fondean | «La clave se queda en el equipo del usuario. El servidor no la ve nunca.» |
-| **0:37** | La línea de confianza con el USDC de Circle | «Para recibir USDC hay que aceptarlo. Y se acepta el de Circle por su emisor, porque cualquiera puede inventarse un USDC.» |
-| **0:43** | Las 4 vueltas que se acaban de ver, con su coste | «Son las cuatro llamadas de la tarea de antes. Todavía no se ha pagado nada.» |
-| **0:58** | `Sin descontar la caché… 2.9 veces más` | «Sin descontar la caché, cobraríamos casi el triple por el mismo trabajo.» |
-| **1:02** | `✓ FIRMADO Y ENVIADO`: el XLM que sale y el USDC que llega | «El agente paga en XLM y nosotros recibimos dólares exactos. Un pago por tarea, no por vuelta.» |
-| **1:12** | `VÁLIDO` y, a partir de 1:27, los seis intentos con su veredicto | «El verificador no se fía: va a la cadena. Y no cuela ninguno de los seis, ni el del USDC falso.» |
-| **1:39** | El enlace y la comparación con la tarjeta | «Compruébenlo ustedes mismos. Con tarjeta, la comisión habría sido veintiocho veces lo cobrado.» |
+| **0:00** | La terminal en la carpeta `facturas-enero-marzo-2026`; se escribe `chocolatito` y se abre el agente | «Esto es Chocolatito Code, un agente de IA que trabaja en tu computadora. Lo abrimos en una carpeta con ocho facturas.» |
+| **0:08** | Se le escribe la orden | «Le pedimos una tarea de verdad: leer las facturas y hacer un balance.» |
+| **0:26** | Trabaja: lista la carpeta, abre las ocho facturas, escribe `balance.md` y resume | «Cada vez que consulta al modelo, se mide lo que consumió. Le toma trece segundos.» |
+| **0:39** | `/exit`, `cd ..` y `npm run demo` | «Tarea hecha. Ahora toca cobrarla.» |
+| **0:59** | Se crean las cuentas y se fondean | «La clave se queda en el equipo del usuario. El servidor no la ve nunca.» |
+| **1:10** | La línea de confianza con el USDC de Circle | «Para recibir USDC hay que aceptarlo. Y se acepta el de Circle por su emisor, porque cualquiera puede inventarse un USDC.» |
+| **1:15** | Las 4 vueltas que se acaban de ver, con lo que pidió en cada una y su coste | «Son las cuatro llamadas de la tarea de antes. Todavía no se ha pagado nada.» |
+| **1:25** | `Sin descontar la caché… 2.9 veces más` | «Sin descontar la caché, cobraríamos casi el triple por el mismo trabajo.» |
+| **1:30** | `✓ FIRMADO Y ENVIADO`: el XLM que sale y el USDC que llega | «El agente paga en XLM y nosotros recibimos dólares exactos. Un pago por tarea, no por vuelta.» |
+| **1:42** | `VÁLIDO` y, a partir de 1:55, los seis intentos con su veredicto | «El verificador no se fía: va a la cadena. Y no cuela ninguno de los seis, ni el del USDC falso.» |
+| **2:08** | El enlace y la comparación con la tarjeta | «Compruébenlo ustedes mismos. Con tarjeta, la comisión habría sido veintinueve veces lo cobrado.» |
 
 **El momento importante son los seis intentos.** Cualquiera puede enseñar un
 pago que funciona; enseñar los seis que *no* cuelan es lo que demuestra que hay
 un sistema detrás y no un script de demostración.
 
-La pantalla final se queda quieta desde 1:43 hasta el final: es el sitio para
+La pantalla final se queda quieta desde 2:13 hasta el final: es el sitio para
 cerrar con la voz.
 
 ---
@@ -51,7 +54,6 @@ Un minuto más, y suma en «viabilidad y continuidad» (15% de la nota):
 
 1. **chocolatito.space** — la web, con sus dos planes reales
 2. **chocolatito.space/chat** — el chat funcionando
-3. La terminal con `chocolatito` corriendo una tarea de verdad
 
 Decir: *«esto no es un proyecto de hackathon buscando un problema. Es un
 producto que ya se vende, y esta es la forma de cobrar que le estamos
@@ -61,18 +63,23 @@ construyendo.»*
 
 ## Si hay que volver a grabarlo
 
-La toma entera son dos órdenes seguidas, en el mismo terminal:
+En una terminal aparte, el medidor, que prepara la carpeta y se queda midiendo:
 
 ```bash
-node --experimental-strip-types guiones/medir-agente.ts
-npm run demo
+node --experimental-strip-types guiones/medir-agente.ts --interactivo \
+  --carpeta facturas-enero-marzo-2026 \
+  --orden "Lee todas las facturas .txt de esta carpeta y escribe balance.md con una tabla del total por mes y el total general. No preguntes, hazlo."
 ```
 
-La primera pone a trabajar al agente de verdad (necesita el CLI instalado y una
-licencia, y gasta unos centavos) y guarda lo que consumió; la segunda cobra
-exactamente eso. Si el agente trabaja otra vez, **las cifras cambian un poco**,
-porque cada ejecución es distinta: hay que repasar después el README y el
-guion del pitch.
+En la terminal que se graba, con `CHOCOLATITO_ENGINE_URL=http://localhost:4791/v1`
+puesta y dentro de `facturas-enero-marzo-2026`:
+
+1. `chocolatito`, y escribirle la misma orden que se le pasó al medidor.
+2. Cuando termine, `/exit`.
+3. `cd ..` y `npm run demo`.
+
+El agente gasta unos centavos de la licencia, y **las cifras cambian un poco**
+en cada ejecución: hay que repasar después el README y el guion del pitch.
 
 Antes de grabar, una pasada sin pausas para comprobar que la testnet responde
 y que el DEX tiene ruta entre XLM y USDC:
