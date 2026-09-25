@@ -4,7 +4,7 @@
 se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 
 > Está cronometrado a ~150 palabras por minuto, que es un ritmo de hablar
-> normal: son unas 440 palabras, 2:57. Si lo leen más rápido, sobra tiempo; si
+> normal: son unas 440 palabras, 2:54. Si lo leen más rápido, sobra tiempo; si
 > se extienden, se corta. **Léanlo en voz alta con un cronómetro antes de
 > grabar.**
 
@@ -12,7 +12,7 @@ se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 
 ## 0:00 – 0:25 · El problema, con una cifra
 
-> Una tarea de inteligencia artificial cuesta menos de un centavo.
+> Una tarea de inteligencia artificial cuesta un centavo.
 >
 > Cobrarla con tarjeta cuesta treinta.
 >
@@ -35,8 +35,8 @@ se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 > Cada tarea que hace tiene un coste exacto en dólares, y lo calculamos desde
 > antes de esta hackathon.
 >
-> El problema nunca fue medir. Fue cobrar: con tarjeta, una tarea de menos de
-> un centavo no se puede cobrar.
+> El problema nunca fue medir. Fue cobrar: con tarjeta, una tarea de un
+> centavo no se puede cobrar.
 
 ---
 
@@ -67,14 +67,14 @@ se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 > balance». Chocolatito Code la hizo de verdad: abrió ocho facturas y escribió
 > el archivo.
 >
-> Cuatro vueltas, cada una medida. Al cerrar, un solo pago de menos de un
-> centavo, firmado y en la cadena.
+> Cuatro vueltas, cada una medida. Al cerrar, un solo pago de un centavo,
+> firmado y en la cadena.
 >
 > Luego, seis intentos de colar un pago falso, incluido uno con un USDC
 > inventado. Los seis, rechazados.
 >
-> **Y el número que lo resume: con tarjeta, la comisión habría sido treinta y
-> una veces lo cobrado. En Stellar fue una décima parte del uno por ciento.**
+> **Y el número que lo resume: con tarjeta, la comisión habría sido veintiocho
+> veces lo cobrado. En Stellar fue una décima parte del uno por ciento.**
 
 *(Se ve: la demo corriendo, y el enlace al explorador.)*
 
@@ -110,11 +110,12 @@ se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 - Graben en un sitio sin eco. Un celular a medio metro suena mejor que una
   laptop a dos.
 - Mejor dos voces que una: alternen quién habla en cada bloque.
-- Los números se dicen despacio. «Treinta y una veces» es el dato que tiene
+- Los números se dicen despacio. «Veintiocho veces» es el dato que tiene
   que quedarse; si se dice rápido, se pierde.
-- Las cifras son las de la ejecución grabada del 24 sep (README, «Evidencia
-  on-chain»). Si graban otra, lo cobrado vuelve a ser 0.0097786 USDC, porque la
-  tarea medida es la misma; el XLM que sale depende del DEX de ese momento, y
-  por eso el guion no dice ninguna cifra en XLM.
+- Las cifras son las del video de la demo, grabado el 24 sep (README,
+  «Evidencia on-chain»). Si se vuelve a grabar, el agente trabaja otra vez y el
+  coste cambia un poco —cada ejecución es distinta—, así que hay que repasar
+  este guion. Por eso no dice ninguna cifra en XLM: esa depende además del DEX
+  de ese momento.
 - Si algo no se entiende al escucharlo, **es el guion el que está mal**, no
   quien lo lee. Cámbienlo: para eso está en un archivo que pueden editar.

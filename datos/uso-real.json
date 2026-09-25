@@ -1,5 +1,5 @@
 {
-  "capturado": "2026-09-23T01:56:45.517Z",
+  "capturado": "2026-09-25T03:06:48.836Z",
   "modelo": "deepseek-v4-flash",
   "origen": "Chocolatito Code ejecutandose de verdad sobre datos/taller/",
   "orden": "Lee todas las facturas .txt de esta carpeta y escribe balance.md con una tabla del total por mes y el total general. No preguntes, hazlo.",
@@ -9,7 +9,7 @@
       "etiqueta": "vuelta 1",
       "modelo": "deepseek-v4-flash",
       "prompt_tokens": 14882,
-      "completion_tokens": 89,
+      "completion_tokens": 68,
       "prompt_tokens_details": {
         "cached_tokens": 128
       }
@@ -17,8 +17,8 @@
     {
       "etiqueta": "vuelta 2",
       "modelo": "deepseek-v4-flash",
-      "prompt_tokens": 15213,
-      "completion_tokens": 273,
+      "prompt_tokens": 15079,
+      "completion_tokens": 461,
       "prompt_tokens_details": {
         "cached_tokens": 14592
       }
@@ -26,19 +26,19 @@
     {
       "etiqueta": "vuelta 3",
       "modelo": "deepseek-v4-flash",
-      "prompt_tokens": 16151,
-      "completion_tokens": 613,
+      "prompt_tokens": 16205,
+      "completion_tokens": 757,
       "prompt_tokens_details": {
-        "cached_tokens": 15104
+        "cached_tokens": 14976
       }
     },
     {
       "etiqueta": "vuelta 4",
       "modelo": "deepseek-v4-flash",
-      "prompt_tokens": 16794,
-      "completion_tokens": 167,
+      "prompt_tokens": 17015,
+      "completion_tokens": 432,
       "prompt_tokens_details": {
-        "cached_tokens": 15872
+        "cached_tokens": 16128
       }
     }
   ]

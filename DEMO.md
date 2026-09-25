@@ -1,15 +1,14 @@
-# Cómo grabar el video demo
+# El video de la demo
 
-> **Hay dos videos en `video/` y no son lo mismo:**
+> **Hay dos videos en `video/`, y los dos son capturas de pantalla reales:**
 >
 > | Archivo | Qué es |
 > |---|---|
-> | `agente-navegador.mp4` | **Captura de pantalla real** del agente trabajando en el navegador |
-> | `demo-chocolatito-stellar.mp4` | **Reconstrucción**: texto y tiempos reales, píxeles redibujados |
+> | `demo-chocolatito-stellar.mp4` | **El que se entrega.** Una sola toma: el agente haciendo la tarea y, a continuación, el cobro de esa tarea en Stellar. 1920×1080, 1:57. |
+> | `agente-navegador.mp4` | El agente trabajando en su interfaz web (`--servir`). 9 s. |
 >
-> El segundo NO es una grabación, por fiel que sea. Sirve de respaldo y de
-> material para el pitch, pero lo que se entrega conviene que sea una captura
-> de verdad: la que hagan con `Win + G`, como se explica abajo.
+> El máster en 2560×1440, para editar, está fuera del repositorio:
+> `chocolatito-demo-en-vivo-1440p.mp4`, en la carpeta Videos de Tomás.
 
 **Este es el que evalúa el jurado.** Las bases lo dicen con estas palabras:
 
@@ -21,62 +20,28 @@ sea corto.
 
 ---
 
-## La demo ya está escrita. Solo hay que grabarla.
+## Qué se ve, y qué decir encima
 
-```bash
-git clone https://github.com/chocolatito27/chocolatito-stellar
-cd chocolatito-stellar
-npm install
-npm run demo
-```
+La grabación no tiene voz: esto es para ponérsela al editar. Los minutos son
+aproximados, ±3 segundos.
 
-Corre sola de principio a fin, con pausas pensadas para que se pueda leer en
-video sin pausar nada. Tarda algo más de **minuto y medio**.
-
-**Antes de grabar, una pasada sin pausas** para comprobar que la testnet
-responde y que el DEX tiene ruta entre XLM y USDC:
-
-```bash
-npm run demo -- --rapido
-```
-
-Si sale «No hay ruta…», esperen un rato y prueben otra vez: sin ruta no hay
-pago en USDC, y la demo no se inventa un precio.
-
-### Nada está preparado de antemano
-
-Y conviene decirlo en voz alta mientras se graba, porque es lo que separa esto
-de unas diapositivas:
-
-- Las cuentas de Stellar **se crean al arrancar**. No son de ayer.
-- La transacción **se firma en ese momento**.
-- El enlace del explorador que sale al final **es comprobable** por quien esté
-  viendo el video.
-
-Si graban dos veces, salen dos transacciones distintas. Eso es lo que hay que
-enseñar.
-
----
-
-## Qué se ve, paso a paso
-
-| | Qué sale | Qué decir encima |
+| Minuto | Qué sale | Qué decir encima |
 |---|---|---|
-| **1** | Se crean las cuentas y se fondean | «La clave se queda en el equipo del usuario. El servidor no la ve nunca.» |
-| **2** | La línea de confianza con el USDC de Circle | «Para recibir USDC hay que aceptarlo. Y se acepta el de Circle por su emisor, porque cualquiera puede inventarse un USDC.» |
-| **3** | La orden y las 4 vueltas del agente, con su coste | «Esto lo hizo Chocolatito Code de verdad. Cada vuelta se mide; todavía no se ha pagado nada.» |
-| **3b** | `Sin descontar la caché… 3.0 veces más` | «Sin descontar la caché, cobraríamos el triple por el mismo trabajo.» |
-| **4** | `✓ FIRMADO Y ENVIADO`: el XLM que sale y el USDC que llega | «El agente paga en XLM y nosotros recibimos dólares exactos. Un pago por tarea, no por vuelta.» |
-| **5** | `VÁLIDO` y los seis intentos, cada uno con su veredicto | «El verificador no se fía: va a la cadena. Y no cuela ninguno de los seis, ni el del USDC falso.» |
-| **6** | El enlace y la comparación con la tarjeta | «Compruébenlo ustedes mismos. Con tarjeta, la comisión habría sido treinta y una veces lo cobrado.» |
+| **0:00** | Chocolatito Code recibe la orden, lista la carpeta, abre las ocho facturas y escribe `balance.md` | «Esto es Chocolatito Code haciendo una tarea de verdad. Cada vez que consulta al modelo, se mide lo que consumió.» |
+| **0:23** | Se crean las cuentas y se fondean | «La clave se queda en el equipo del usuario. El servidor no la ve nunca.» |
+| **0:37** | La línea de confianza con el USDC de Circle | «Para recibir USDC hay que aceptarlo. Y se acepta el de Circle por su emisor, porque cualquiera puede inventarse un USDC.» |
+| **0:43** | Las 4 vueltas que se acaban de ver, con su coste | «Son las cuatro llamadas de la tarea de antes. Todavía no se ha pagado nada.» |
+| **0:58** | `Sin descontar la caché… 2.9 veces más` | «Sin descontar la caché, cobraríamos casi el triple por el mismo trabajo.» |
+| **1:02** | `✓ FIRMADO Y ENVIADO`: el XLM que sale y el USDC que llega | «El agente paga en XLM y nosotros recibimos dólares exactos. Un pago por tarea, no por vuelta.» |
+| **1:12** | `VÁLIDO` y, a partir de 1:27, los seis intentos con su veredicto | «El verificador no se fía: va a la cadena. Y no cuela ninguno de los seis, ni el del USDC falso.» |
+| **1:39** | El enlace y la comparación con la tarjeta | «Compruébenlo ustedes mismos. Con tarjeta, la comisión habría sido veintiocho veces lo cobrado.» |
 
-**El momento importante es el 5.** Cualquiera puede enseñar un pago que
-funciona; enseñar los seis que *no* cuelan es lo que demuestra que hay un
-sistema detrás y no un script de demostración.
+**El momento importante son los seis intentos.** Cualquiera puede enseñar un
+pago que funciona; enseñar los seis que *no* cuelan es lo que demuestra que hay
+un sistema detrás y no un script de demostración.
 
-**Si alguna línea sale en rojo, esa toma no se entrega.** La demo pinta cada
-veredicto tal como salió, y el rojo significa que algo no dio lo esperado. Hay
-que mirarlo antes de volver a grabar.
+La pantalla final se queda quieta desde 1:43 hasta el final: es el sitio para
+cerrar con la voz.
 
 ---
 
@@ -94,22 +59,36 @@ construyendo.»*
 
 ---
 
-## Cómo se graba, en la práctica
+## Si hay que volver a grabarlo
 
-**En Windows**, sin instalar nada: `Win + G` abre la Xbox Game Bar y graba la
-ventana. Si quieren algo mejor, OBS Studio es gratis.
+La toma entera son dos órdenes seguidas, en el mismo terminal:
 
-Cuatro cosas que arreglan el 90% de los videos malos:
+```bash
+node --experimental-strip-types guiones/medir-agente.ts
+npm run demo
+```
 
-- **Agranden la letra de la terminal** antes de grabar (`Ctrl` + `+`). Lo que
-  se lee bien en su monitor no se lee en un proyector.
-- **Fondo oscuro.** La demo está coloreada para fondo oscuro.
-- **Pantalla limpia**: sin notificaciones, sin pestañas de más, sin nombres de
-  archivos personales a la vista.
-- **1080p**. Nada de grabar en vertical.
+La primera pone a trabajar al agente de verdad (necesita el CLI instalado y una
+licencia, y gasta unos centavos) y guarda lo que consumió; la segunda cobra
+exactamente eso. Si el agente trabaja otra vez, **las cifras cambian un poco**,
+porque cada ejecución es distinta: hay que repasar después el README y el
+guion del pitch.
 
-Si se equivocan a mitad, **vuelvan a empezar**. Dura minuto y medio: es más
-rápido repetir que editar.
+Antes de grabar, una pasada sin pausas para comprobar que la testnet responde
+y que el DEX tiene ruta entre XLM y USDC:
+
+```bash
+npm run demo -- --rapido
+```
+
+Si sale «No hay ruta…», esperen un rato: sin ruta no hay pago en USDC, y la
+demo no se inventa un precio. **Si alguna línea sale en rojo, esa toma no se
+entrega**: la demo pinta cada veredicto tal como salió, y el rojo significa que
+algo no dio lo esperado.
+
+Para grabar sin instalar nada, en Windows: `Win + G` abre la Xbox Game Bar y
+graba la ventana. Letra grande (`Ctrl` + `+`), fondo oscuro, sin
+notificaciones a la vista y en horizontal.
 
 ---
 

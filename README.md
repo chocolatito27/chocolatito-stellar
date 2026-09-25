@@ -29,9 +29,9 @@ aciertos de caché incluido— porque lo necesita para su propio control de gast
 Lo que este proyecto añade es la otra mitad: **que ese número medido se liquide
 solo, on-chain, sin que nadie lo apunte a mano.**
 
-La tarea de la demo costó **0.0097785 USD**. Eso no se puede cobrar con
-tarjeta: la pasarela se queda del orden de 0.30 fijos, 31 veces el propio
-cobro. Sobre Stellar, la comisión de red fue 0.00001 XLM, el 0.1% de lo que
+La tarea de la demo costó **0.0105464 USD**: un centavo. Eso no se puede
+cobrar con tarjeta: la pasarela se queda del orden de 0.30 fijos, 28 veces el
+propio cobro. Sobre Stellar, la comisión de red fue 0.00001 XLM, el 0.1% de lo que
 salió de la cuenta del agente. Está medido más abajo, no es una estimación.
 
 ---
@@ -65,14 +65,14 @@ agente* quien firme, no un servidor en su nombre.
   │ (Cloudflare)                     │   devuelve el `usage` de cada vuelta.
   └─────────────────┬────────────────┘
                     │  3. costeDe(modelo, usage)
-                    │     → la tarea costó 0.0097785 USD
+                    │     → la tarea costó 0.0105464 USD
                     ▼
   ┌──────────────────────────────────┐
   │ Al cerrar la tarea, en tu equipo │   4. Firma un path payment: sale XLM,
   └─────────────────┬────────────────┘      el DEX convierte, llega USDC.
                     ▼
   ┌──────────────────────────────────┐
-  │ STELLAR TESTNET                  │   El cobro recibe 0.0097786 USDC de
+  │ STELLAR TESTNET                  │   El cobro recibe 0.0105464 USDC de
   └─────────────────┬────────────────┘   Circle, con el memo cc:LIC-DEMO.
                     │  5. el hash
                     ▼
@@ -144,22 +144,22 @@ La liquidación que sale en el video de la demo, comprobable en el explorador:
 
 | | |
 |---|---|
-| **Transacción** | [`10022c7b81d0b495ecdab99a250d7b9625589fe5d90efe73e2b0e9b2bec1632c`](https://stellar.expert/explorer/testnet/tx/10022c7b81d0b495ecdab99a250d7b9625589fe5d90efe73e2b0e9b2bec1632c) |
+| **Transacción** | [`97b12fc3df500d4a81382b342a8b3c2c353fa69555219b1ee3e2a42a7eb17e0e`](https://stellar.expert/explorer/testnet/tx/97b12fc3df500d4a81382b342a8b3c2c353fa69555219b1ee3e2a42a7eb17e0e) |
 | Operación | `path_payment_strict_receive`: XLM → USDC por el DEX, sin saltos intermedios |
-| El cobro recibió | **0.0097786 USDC** de Circle (emisor `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5`) |
-| El agente pagó | 0.0093599 XLM (tope firmado: 0.0096407) |
-| Cuenta del agente | `GBB3ZNVJGONRWTFD6GSRMQOM4XMUV24L2KYKJKJE6RUGEGRRV6FYIKE5` |
-| Cuenta de cobro | `GAE4V4MKKL4RTOE23FZ7EODCC2TG3K3HSDFNBLOIDFRNJLVIDXIW6JJX` |
+| El cobro recibió | **0.0105464 USDC** de Circle (emisor `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5`) |
+| El agente pagó | 0.0100949 XLM (tope firmado: 0.0103978) |
+| Cuenta del agente | `GAPKRTR5V5O7TIPVT4M2NRFP6AR7O7D65GBIGOF3NIECEIEF7MGDFQ5P` |
+| Cuenta de cobro | `GCPE5U2G3JYUKP3E7EYHG3CU6PLEXOA57D5NS4UXGCUZT6NU6F6IPFW3` |
 | Memo | `cc:LIC-DEMO` (atribución a la licencia de ejemplo) |
 | Comisión de red | **100 stroops = 0.00001 XLM** |
-| Fecha | 2026-09-25 02:29:22 UTC (24 sep, 21:29 PET) · ledger 4855955 |
+| Fecha | 2026-09-25 03:07:42 UTC (24 sep, 22:07 PET) · ledger 4856415 |
 
-**El número que resume el proyecto**: cobrar 0.0097786 USDC costó 0.00001 XLM
+**El número que resume el proyecto**: cobrar 0.0105464 USDC costó 0.00001 XLM
 de comisión, el 0.1% de lo que salió de la cuenta del agente. Una pasarela de
-tarjeta se queda del orden de 0.30 USD fijos: 31 veces el propio cobro.
+tarjeta se queda del orden de 0.30 USD fijos: 28 veces el propio cobro.
 
-**Sobre el precio.** El DEX de testnet no tiene precios de mercado: 0.0093599
-XLM por 0.0097786 USDC es lo que ofrecían en ese momento las órdenes que hay en
+**Sobre el precio.** El DEX de testnet no tiene precios de mercado: 0.0100949
+XLM por 0.0105464 USDC es lo que ofrecían en ese momento las órdenes que hay en
 testnet, no lo que vale el XLM. Lo que sí es real es el mecanismo: el cobro
 recibe exactamente lo pedido, y el agente nunca paga más del tope que firmó.
 
@@ -172,9 +172,11 @@ El paso a USDC, con la línea de confianza y el path payment, es del 24 sep.
 **Esto no es una simulación de un agente: es el agente.** Se ejecutó
 **Chocolatito Code instalado**, con `chocolatito -y "..."`, sobre ocho facturas
 de ejemplo que el propio guion escribe en `datos/taller/`. Listó la carpeta,
-abrió las ocho, sumó por mes y escribió `balance.md`. Las vueltas de abajo son
-**las que él decidió dar solo**, medidas al vuelo el 23 sep a las 01:56 UTC y
-guardadas en [`datos/uso-real.json`](datos/uso-real.json).
+abrió las ocho, sumó por mes y escribió `balance.md`; al terminar dijo haber
+comprobado la suma, y el total que dio, 2821.35 PEN, es el correcto. Las
+vueltas de abajo son **las que él decidió dar solo**, medidas al vuelo el 25 sep
+a las 03:06 UTC, durante la grabación del video de la demo, y guardadas en
+[`datos/uso-real.json`](datos/uso-real.json).
 
 Se midió poniendo un proxy delante del proxy y lanzando el CLI contra él con
 `CHOCOLATITO_ENGINE_URL`. **No hubo que tocar ni una línea del producto**: esa
@@ -182,18 +184,18 @@ variable ya existía para pruebas.
 
 | Vuelta | Lo que decidió hacer | Entrada | En caché | Salida | Coste (USD) |
 |---|---|---:|---:|---:|---:|
-| 1 | listar la carpeta | 14882 | 128 | 89 | 0.0066110 |
-| 2 | abrir las 8 facturas | 15213 | 14592 | 273 | 0.0008379 |
-| 3 | escribir `balance.md` | 16151 | 15104 | 613 | 0.0014813 |
-| 4 | dar el resumen | 16794 | 15872 | 167 | 0.0008483 |
-| | | | | **Total** | **0.0097785** |
+| 1 | listar la carpeta | 14882 | 128 | 68 | 0.0065833 |
+| 2 | abrir las 8 facturas | 15079 | 14592 | 461 | 0.0010271 |
+| 3 | escribir `balance.md` | 16205 | 14976 | 757 | 0.0017497 |
+| 4 | dar el resumen | 17015 | 16128 | 432 | 0.0011863 |
+| | | | | **Total** | **0.0105464** |
 
 Lo que hizo en cada vuelta sale de su propia salida en la terminal, guardada
 en [`video/captura-agente.json`](video/captura-agente.json).
 
 **Por qué el medidor no es un detalle**: sin descontar la caché, esa tarea
-habría costado **0.0292450, el triple**: dos tercios de la factura serían
-sobreprecio. Se ve en la tabla: la primera vuelta paga entero el contexto del
+habría costado **0.0300674, casi el triple**: casi dos tercios de la factura
+serían sobreprecio. Se ve en la tabla: la primera vuelta paga entero el contexto del
 agente —solo 128 de 14882 tokens en caché—; desde la segunda, ese prefijo ya
 está en caché y cada token de entrada cuesta unas 30 veces menos (0.014 frente
 a 0.44 USD por millón). Eso **solo pasa con un agente**, que arrastra el
@@ -217,11 +219,11 @@ forma de cobrar sin pagar. Estos son los veredictos de la ejecución grabada:
 | Intento | Resultado |
 |---|---|
 | El pago bueno | ✅ válido |
-| Presentarlo cuando se debía 1.00 | ❌ `Pagó 0.0097786 y debía 1.` |
+| Presentarlo cuando se debía 1.00 | ❌ `Pagó 0.0105464 y debía 1.` |
 | Reutilizar el pago de otra licencia | ❌ `El memo no corresponde a esta licencia.` |
 | Pagarse a sí mismo y enseñar el hash | ❌ `La transacción no paga a la cuenta de cobro.` |
 | Inventarse un hash | ❌ `Esa transacción no existe en la red.` |
-| Pagar con un «USDC» que emitió el propio atacante | ❌ `Pagó en un «USDC» que no es el de Circle: lo emite GCDBSWQU…` |
+| Pagar con un «USDC» que emitió el propio atacante | ❌ `Pagó en un «USDC» que no es el de Circle: lo emite GADNAU22…` |
 | Pagar en XLM en vez de USDC | ❌ `Pagó en XLM, y se cobra en USDC.` |
 
 **El «USDC» falso es el caso que obliga a mirar el emisor.** Cualquiera puede
@@ -252,7 +254,8 @@ el SDK— y ahora no puede volver a pasar en silencio.
 | USDC de testnet de Circle | activo de prueba, sin valor | El activo en que se cobra. Se identifica por su emisor, `GBBD47IF…LFLA5`, que Circle publica en [su lista oficial de direcciones](https://developers.circle.com/stablecoins/usdc-contract-addresses) |
 | El DEX de Stellar (órdenes de testnet) | parte del protocolo | Convertir XLM en USDC dentro del path payment |
 | Lemon Squeezy | servicio comercial | **Preexistente**, no forma parte de lo presentado. Emite las licencias del producto; aquí solo se usaría el prefijo de la clave como `memo` para atribuir cada pago. **En este repositorio no hay ninguna licencia real**: los guiones usan un identificador de ejemplo. |
-| `puppeteer-core`, Google Chrome y `ffmpeg` | Apache-2.0 / gratuito / LGPL | Solo para generar el video de respaldo (`guiones/grabar.ts`). `puppeteer-core` se toma del repositorio del producto y no es dependencia de este. |
+| `ffmpeg` y Windows Terminal | LGPL/GPL según la compilación / MIT | Grabar la pantalla del video de la demo y recortarlo. No los usa nada de lo que se evalúa. |
+| `puppeteer-core` y Google Chrome | Apache-2.0 / gratuito | Solo `guiones/grabar.ts`, que reconstruye la demo como video a partir de su salida; ya no es el video que se entrega. `puppeteer-core` se toma del repositorio del producto y no es dependencia de este. |
 | TypeScript y `@types/node` | Apache-2.0 / MIT | Solo para comprobar los tipos (`npm run tipos`) |
 
 Apache-2.0 es compatible con la licencia MIT de este repositorio.
@@ -283,62 +286,48 @@ proyecto presentado no participa de ese flujo.
 
 ---
 
-## Grabación de pantalla real del agente
+## Los videos
+
+### La demo, grabada de verdad
+
+[`video/demo-chocolatito-stellar.mp4`](video/demo-chocolatito-stellar.mp4) —
+1920×1080, 1 min 57 s.
+
+**Es una grabación de la pantalla, en una sola toma**, del 24 sep a las 22:06
+PET. `ffmpeg` capturó la pantalla entera (`gdigrab`, 2560×1440 a 30 fps)
+mientras en una ventana de Windows Terminal corrían, uno detrás de otro,
+`guiones/medir-agente.ts` y `npm run demo`. No hay cortes: solo se quitaron
+1.9 s del principio, con la pantalla vacía, y el final, donde la ventana se
+cierra y aparecería el escritorio.
+
+| Tramo | Qué se ve |
+|---|---|
+| 0:00 – 0:21 | Chocolatito Code haciendo la tarea: lista la carpeta, abre las ocho facturas y escribe `balance.md`. Entre medias, cada vuelta medida al vuelo. |
+| 0:21 – 1:43 | La demo: las cuentas, la línea de confianza con el USDC de Circle, el coste de esas mismas cuatro vueltas, el path payment, la verificación y los seis intentos de fraude, cada uno con su veredicto. |
+| 1:43 – 1:57 | La pantalla final, con el enlace a la transacción. |
+
+Los números de la demo son **los de la tarea que se acaba de ver**:
+`medir-agente.ts` escribe `datos/uso-real.json` y la demo lo lee justo después.
+La transacción del final es la de la [evidencia de arriba](#evidencia-on-chain-testnet).
+
+Hubo una primera toma que se descartó: en ella salía un aviso de Node
+(`DEP0190`), porque `medir-agente.ts` arrancaba el CLI a través de una shell
+con los argumentos sin escapar. Se corrigió el guion —ahora arranca el CLI
+igual que el `chocolatito.cmd` de npm, sin shell— y se grabó otra vez.
+
+Hasta esta grabación, el video del repositorio era una **reconstrucción**: la
+salida real de los programas, redibujada fotograma a fotograma por
+`guiones/grabar.ts`. Se ha sustituido por la grabación de verdad.
+
+### El agente en su interfaz web
 
 [`video/agente-navegador.mp4`](video/agente-navegador.mp4) — 1568×780, 9.3 s.
 
-**Esto sí son píxeles de una pantalla.** Se abrió la sesión del agente en el
-navegador con `chocolatito --servir`, se le dio la orden y se grabó el
-navegador mientras trabajaba: lista la carpeta, lee las ocho facturas una a
-una y escribe `balance.md`.
-
-Se grabó así porque la interfaz web del propio producto **ya existía** —
-`--servir` sirve la sesión para usarla desde el celular— y eso permite capturar
-la sesión de verdad sin depender de un grabador de escritorio.
-
-Son 17 fotogramas: un agente trabajando no cambia la pantalla sesenta veces
-por segundo, así que capturar en los momentos en que pasa algo cuenta lo mismo
-y pesa 361 KB en vez de decenas de megas.
-
-## El video de la demo
-
-[`video/demo-chocolatito-stellar.mp4`](video/demo-chocolatito-stellar.mp4) —
-1920×1080, 1 min 53 s.
-
-**QUÉ ES Y QUÉ NO ES ESTE ARCHIVO**
-
-No es una grabación de pantalla. **Es una reconstrucción**, y conviene saber
-exactamente qué parte es real:
-
-| | |
-|---|---|
-| Los dos programas se ejecutaron de verdad | **Sí.** El agente, el 23 sep a las 01:56 UTC (la misma ejecución de `datos/uso-real.json`); el cobro, el 25 sep a las 02:29 UTC |
-| El texto es su salida, carácter por carácter | **Sí** |
-| Los tiempos son los que tardó de verdad | **Sí** — cada fotograma dura lo medido |
-| **Los píxeles salen de una pantalla** | **No.** Chrome redibuja cada fotograma desde HTML y ffmpeg los une |
-
-Se hizo así para que no salieran el escritorio, las notificaciones ni el
-tamaño de letra de nadie, y para poder regenerarlo con un comando. Pero **una
-reconstrucción no es una grabación**, por fiel que sea el texto.
-
-**Para entregar al jurado conviene una captura de pantalla de verdad**: ver
-[DEMO.md](DEMO.md). Este archivo sirve como respaldo y como material para el
-video pitch.
-
-**Va en dos tramos:**
-
-1. **Chocolatito Code trabajando** (~18 s): su banner, la orden, cómo lista la
-   carpeta, abre las ocho facturas y escribe `balance.md`.
-2. **El cobro de ese trabajo** (~93 s): las cuentas, la línea de confianza con
-   el USDC de Circle, las cuatro vueltas con su coste, el path payment, la
-   verificación y los seis intentos de fraude, cada uno con el veredicto que
-   dio de verdad.
-
-La transacción que aparece dentro se firmó durante esa ejecución: es la de la
-[evidencia de arriba](#evidencia-on-chain-testnet).
-
-Se regenera con `node --experimental-strip-types guiones/grabar.ts`, y cada
-ejecución firma una transacción nueva y comprobable.
+También es una captura de pantalla real: la sesión del agente abierta en el
+navegador con `chocolatito --servir`, mientras lista la carpeta, lee las ocho
+facturas y escribe `balance.md`. Esa interfaz web **ya existía** en el
+producto: `--servir` sirve la sesión para usarla desde el celular. Son 17
+fotogramas, tomados en los momentos en que cambia algo.
 
 ## Cómo verlo funcionando
 
@@ -367,7 +356,7 @@ no las hay, la demo se para diciendo que no hay ruta: no se inventa un precio.
 | `npm run probar` | El verificador: que no carga el SDK, que el pago bueno pasa y que los seis fraudes se rechazan cada uno por su motivo. **Sale con error** si algo no cuadra. Necesita red y tarda un minuto. |
 | `npm run tipos` | Comprueba los tipos de todo `src/` y `guiones/`. |
 | `guiones/medir-agente.ts` | Vuelve a medir al agente de verdad. Necesita el CLI y una licencia, y gasta unos centavos. |
-| `guiones/grabar.ts` | Regenera el video de respaldo. |
+| `guiones/grabar.ts` | Reconstruye la demo como video a partir de su salida real. Ya no es el video que se entrega: ese es una grabación de pantalla. |
 
 Ver también [DEMO.md](DEMO.md) (cómo se graba) y [PITCH.md](PITCH.md) (guion de
 los 3 minutos).
