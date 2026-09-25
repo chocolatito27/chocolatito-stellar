@@ -18,3 +18,6 @@ video/cuadros.txt
 video/captura.json
 video/hash.txt
 datos/taller/
+
+# La carpeta donde trabaja el agente en la grabacion interactiva: se crea sola.
+facturas-enero-marzo-2026/

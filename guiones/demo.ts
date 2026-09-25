@@ -73,6 +73,17 @@ interface Vuelta {
   prompt_tokens: number;
   completion_tokens: number;
   prompt_tokens_details: { cached_tokens: number };
+  /** Lo que pidió el motor en esa respuesta. Las mediciones viejas no lo traen. */
+  herramientas?: string[];
+}
+
+/** "read_file ×8, write_file": las herramientas de una vuelta, contadas. */
+function pidio(v: Vuelta): string {
+  if (!v.herramientas) return "";
+  if (v.herramientas.length === 0) return "responde";
+  const cuenta = new Map<string, number>();
+  for (const h of v.herramientas) cuenta.set(h, (cuenta.get(h) ?? 0) + 1);
+  return [...cuenta].map(([h, n]) => (n > 1 ? `${h} ×${n}` : h)).join(", ");
 }
 
 let capturado: { capturado: string; modelo: string; orden: string; vueltas: Vuelta[] };
@@ -129,12 +140,17 @@ titulo(3, "Una tarea de verdad, medida por el motor");
 for (const [i, trozo] of envolver(`«${capturado.orden}»`, 66).entries()) {
   linea(`  ${FUERTE}${i === 0 ? "" : " "}${trozo}${N}`);
 }
-linea(`${GRIS}  La ejecutó Chocolatito Code de verdad: leyó los 8 archivos,${N}`);
-linea(`${GRIS}  sumó por mes y escribió balance.md. Estas son SUS vueltas.${N}`);
-linea(`${GRIS}  Medidas al vuelo el ${capturado.capturado.slice(0, 16).replace("T", " ")} UTC, en datos/uso-real.json.${N}`);
+// Lo que hizo el agente no se escribe aquí a mano: sale de la medición. La
+// versión anterior decía «leyó los 8 archivos y escribió balance.md», que era
+// verdad en aquella ejecución y habría seguido diciéndolo en cualquier otra.
+linea(`${GRIS}  La hizo Chocolatito Code de verdad. Estas son SUS vueltas, medidas${N}`);
+linea(`${GRIS}  al vuelo el ${capturado.capturado.slice(0, 16).replace("T", " ")} UTC y guardadas en datos/uso-real.json.${N}`);
+if (capturado.vueltas.some((v) => v.herramientas)) {
+  linea(`${GRIS}  «pidió» es lo que el motor le mandó hacer en cada una.${N}`);
+}
 await pausa(3);
 linea();
-linea(`${GRIS}     llamada        entrada   caché   salida      coste${N}`);
+linea(`${GRIS}  vuelta   entrada   caché  salida       coste   pidió${N}`);
 
 const cuenta = new CuentaDeTarea(agente, cobro.publica, LICENCIA);
 let bruto = 0;
@@ -142,9 +158,9 @@ for (const [i, v] of capturado.vueltas.entries()) {
   const c = cuenta.apuntar(capturado.modelo, v);
   bruto += costeSinDescuentoDeCache(capturado.modelo, v);
   linea(
-    `  ${GRIS}${String(i + 1).padStart(3)}${N}  ${v.etiqueta.padEnd(12)} ${String(v.prompt_tokens).padStart(6)}  ${String(
+    `  ${GRIS}${String(i + 1).padStart(6)}${N}  ${String(v.prompt_tokens).padStart(8)}  ${String(
       v.prompt_tokens_details.cached_tokens
-    ).padStart(6)}   ${String(v.completion_tokens).padStart(5)}  ${NARANJA}${c.toFixed(7)}${N}`
+    ).padStart(6)}  ${String(v.completion_tokens).padStart(6)}   ${NARANJA}${c.toFixed(7)}${N}   ${GRIS}${pidio(v)}${N}`
   );
   await pausa(1.1);
 }
@@ -156,8 +172,18 @@ linea(`  ${FUERTE}deuda de la tarea: ${NARANJA}${deuda.toFixed(7)} USD${N}`);
 await pausa(2);
 linea();
 linea(`${GRIS}  Sin descontar la caché habrían sido ${bruto.toFixed(7)}: ${(bruto / deuda).toFixed(1)} veces más.${N}`);
-linea(`${GRIS}  La vuelta 1 paga entero el contexto del agente; desde la 2, ese${N}`);
-linea(`${GRIS}  prefijo ya está en caché y cada token cuesta ~30 veces menos.${N}`);
+// Con los porcentajes de ESTA medición, no con una frase fija: si un día la
+// primera vuelta acierta en caché, la frase de antes seguiría diciendo que no.
+const enCache = (v: Vuelta) => v.prompt_tokens_details.cached_tokens / Math.max(1, v.prompt_tokens);
+const [primera, ...siguientes] = capturado.vueltas;
+if (primera && siguientes.length > 0) {
+  const minimo = Math.min(...siguientes.map(enCache));
+  linea(
+    `${GRIS}  En caché: la vuelta 1, el ${Math.round(enCache(primera) * 100)}% de su entrada; las siguientes, ` +
+      `el ${Math.floor(minimo * 100)}% o más.${N}`
+  );
+  linea(`${GRIS}  Lo que acierta en caché cuesta ~30 veces menos por token.${N}`);
+}
 await pausa(4);
 
 // ─────────────────────────────────────────────────────────────── 4
