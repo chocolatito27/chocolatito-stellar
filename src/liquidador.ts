@@ -1,6 +1,6 @@
 import type { Cartera } from "./cartera.ts";
 import { costeDe, type Uso } from "./medidor.ts";
-import { MINIMO_USD, liquidar, type Liquidacion } from "./pagos.ts";
+import { MINIMO_USD, liquidarEnUsdc, type LiquidacionUsdc } from "./pagos.ts";
 
 /**
  * EL LIQUIDADOR — donde se juntan las dos mitades
@@ -33,7 +33,7 @@ export interface Apunte {
 }
 
 export type Cierre =
-  | { estado: "pagado"; liquidacion: Liquidacion; apuntes: number; coste: number }
+  | { estado: "pagado"; liquidacion: LiquidacionUsdc; apuntes: number; coste: number }
   /** Se debía tan poco que no compensa una transacción. Queda a deber. */
   | { estado: "aplazado"; coste: number; motivo: string }
   /** Se intentó pagar y la red dijo que no. La deuda NO se borra. */
@@ -106,7 +106,9 @@ export class CuentaDeTarea {
     }
 
     try {
-      const liquidacion = await liquidar(this.cartera, this.cuentaDeCobro, coste, this.licencia);
+      // En USDC y por el DEX: el cobro recibe exactamente lo medido, en
+      // dólares, y el agente paga en XLM. Ver `liquidarEnUsdc` en pagos.ts.
+      const liquidacion = await liquidarEnUsdc(this.cartera, this.cuentaDeCobro, coste, this.licencia);
       const apuntes = this.apuntes.length;
       // Solo aquí, y con un hash en la mano, se da por saldada la deuda.
       this.pendiente = 0;

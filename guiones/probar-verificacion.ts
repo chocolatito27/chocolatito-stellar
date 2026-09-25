@@ -1,31 +1,102 @@
-/** El proxy comprobando el pago de verdad, y rechazando los cuatro fraudes. */
-import { comprobarPago } from "../src/verificar.ts";
-
-const HASH = "fe620dbc1e891155e9fe8b27aa309d00db046a93bc858939afa12efd0d9d0656";
-const COBRO = "GBGN5VOQ5ANM5H5TI3TXFRZSNNKO3ONCS5TA6TYAEOZQYY3LLIGOSYW3";
 /**
- * Licencia DE EJEMPLO. Aqui no entra ninguna de verdad.
+ * LA PRUEBA DEL VERIFICADOR
  *
- * Antes habia un identificador real del checkout del producto. No era
- * secreto -esta en el boton de compra de la web publica- pero el codigo lo
- * llamaba LICENCIA, y en un repositorio abierto eso invita a pensar que hay
- * una credencial dentro. No la hay, y ahora tampoco lo parece.
+ * Crea sus propias transacciones cada vez que corre, y SALE CON ERROR si algún
+ * caso no da lo esperado. Las dos cosas son a propósito:
  *
- * Solo se usa para el `memo`, que lleva los 8 primeros caracteres para
- * atribuir el pago sin publicar la clave entera en una cadena que cualquiera
- * puede leer.
+ *  - La versión anterior comprobaba una transacción vieja fijada en el código.
+ *    Cuando cambió la licencia de ejemplo, el "pago bueno" pasó a salir
+ *    rechazado —el memo ya no coincidía— y nadie se enteró, porque la prueba
+ *    solo imprimía y el README seguía diciendo que se reproducía.
+ *  - Una prueba que imprime "rechazado" y termina en verde no prueba nada: hay
+ *    que comparar con lo esperado y fallar si no cuadra.
+ *
+ * Los casos de fraude salen de `trampas.ts`, el mismo sitio del que los saca
+ * la demo: lo que se enseña en el vídeo es lo que se prueba aquí.
+ *
+ *   node --experimental-strip-types guiones/probar-verificacion.ts
+ *
+ * Necesita red (testnet). Tarda ~1 minuto.
  */
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+import { abrirLinea } from "../src/activos.ts";
+import { crearCartera, fondear } from "../src/cartera.ts";
+import { liquidarEnUsdc } from "../src/pagos.ts";
+import { comprobarPago } from "../src/verificar.ts";
+import { casosDeFraude, cuadra, prepararTrampas } from "./trampas.ts";
+
+const AQUI = path.dirname(fileURLToPath(import.meta.url));
+/** Licencia DE EJEMPLO. En este repositorio no entra ninguna de verdad. */
 const LICENCIA = "LIC-DEMO-0001-0002-0003";
+const DEBE = 0.0097785;
 
-const casos: Array<[string, () => Promise<unknown>]> = [
-  ["el pago bueno", () => comprobarPago(HASH, COBRO, LICENCIA, 0.0041)],
-  ["cobrando de mas (debia 1 USD)", () => comprobarPago(HASH, COBRO, LICENCIA, 1)],
-  ["licencia de otro", () => comprobarPago(HASH, COBRO, "99999999-0000-0000-0000-000000000000", 0.0041)],
-  ["destino que no es el nuestro", () => comprobarPago(HASH, "GBBS2QRWNCNC7T4J7IHA6M4OO5TSB56OJ25C3JGZWJXCJEKYRDCBMY4Y", LICENCIA, 0.0041)],
-  ["hash inventado", () => comprobarPago("0".repeat(64), COBRO, LICENCIA, 0.0041)],
-];
+let fallos = 0;
+const marca = (ok: boolean) => (ok ? "✓" : "✗ FALLA");
 
-for (const [nombre, fn] of casos) {
-  const r = (await fn()) as { estado: string; motivo?: string };
-  console.log(`${nombre.padEnd(34)} -> ${r.estado}${r.motivo ? "  (" + r.motivo + ")" : ""}`);
+// ─── 0. El verificador no puede llegar al SDK por ningún camino ─────────────
+//
+// Corre en un Worker. Esta promesa ya se rompió una vez en silencio —importaba
+// de pagos.ts, que carga el SDK— así que ahora se recorre el grafo de
+// importaciones de verdad en vez de fiarse del comentario.
+console.log("\n0. El verificador no carga el SDK de Stellar");
+{
+  const visitados = new Set<string>();
+  const externos: string[] = [];
+  const recorrer = (archivo: string) => {
+    if (visitados.has(archivo)) return;
+    visitados.add(archivo);
+    const texto = fs.readFileSync(archivo, "utf8");
+    for (const m of texto.matchAll(/(?:import|export)[^'"]*?from\s+"([^"]+)"/g)) {
+      const destino = m[1] ?? "";
+      if (destino.startsWith(".")) recorrer(path.resolve(path.dirname(archivo), destino));
+      else externos.push(`${path.basename(archivo)} → ${destino}`);
+    }
+  };
+  recorrer(path.resolve(AQUI, "..", "src", "verificar.ts"));
+  const ok = externos.length === 0;
+  if (!ok) fallos++;
+  console.log(
+    `  ${marca(ok)}  recorre ${[...visitados].map((v) => path.basename(v)).join(", ")}` +
+      (ok ? " — ninguna dependencia externa" : ` — llega a: ${externos.join(", ")}`)
+  );
 }
+
+// ─── Montaje ─────────────────────────────────────────────────────────────────
+console.log("\nMontando cuentas en testnet…");
+const agente = crearCartera();
+const cobro = crearCartera();
+const atacante = crearCartera();
+await Promise.all([fondear(agente.publica), fondear(cobro.publica), fondear(atacante.publica)]);
+await abrirLinea(cobro);
+
+const bueno = await liquidarEnUsdc(agente, cobro.publica, DEBE, LICENCIA);
+console.log(`  pago bueno: ${bueno.importe} USDC por ${bueno.xlmGastado} XLM — ${bueno.hash.slice(0, 16)}…`);
+const trampas = await prepararTrampas(agente, cobro, atacante, LICENCIA, DEBE);
+console.log(`  trampas: USDC falso ${trampas.usdcFalso.slice(0, 12)}… · en XLM ${trampas.enXlm.slice(0, 12)}…`);
+
+// ─── Los casos ───────────────────────────────────────────────────────────────
+console.log("\n1. El pago bueno pasa");
+{
+  const r = await comprobarPago(bueno.hash, cobro.publica, LICENCIA, DEBE);
+  const ok = r.estado === "valido";
+  if (!ok) fallos++;
+  console.log(`  ${marca(ok)}  ${"USDC de Circle, memo y cuenta correctos".padEnd(42)} ${r.estado}`);
+}
+
+console.log("\n2. Los seis intentos de colar un pago que no es");
+for (const c of casosDeFraude(bueno.hash, cobro.publica, agente.publica, LICENCIA, DEBE, trampas)) {
+  const r = await c.veredicto;
+  const ok = cuadra(c, r);
+  if (!ok) fallos++;
+  const motivo = r.estado === "valido" ? "" : `  — ${r.motivo}`;
+  console.log(
+    `  ${marca(ok)}  ${c.nombre.padEnd(42)} ${r.estado}${motivo}` +
+      (ok ? "" : `   (se esperaba ${c.esperado} por "${c.motivo}")`)
+  );
+}
+
+console.log(`\n${fallos === 0 ? "TODO BIEN" : `${fallos} CASO(S) FALLAN`}\n`);
+process.exit(fallos === 0 ? 0 : 1);
