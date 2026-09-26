@@ -152,12 +152,18 @@ def mejor(s: list[str], desde: int, hasta: int):
     return r, -i, L
 
 
-frases, pos = [], 0
+# Whisper escribe "30" donde se dijo "treinta": sin esto, esa palabra quedaba fuera de su frase
+NUMEROS = {"1": "uno", "4": "cuatro", "5": "cinco", "6": "seis", "8": "ocho", "10": "diez",
+           "17": "diecisiete", "29": "veintinueve", "30": "treinta", "40": "cuarenta"}
+Wn = [NUMEROS.get(w, w) for w in Wn]
+
+# (a) Qué palabras de Whisper son de cada frase
+halladas, pos = [], 0
 for n, f in enumerate(DATOS["frases"]):
     s = [letras(w) for w, _ in f["palabras"]]
     hallada = mejor(s, pos, pos + 3 * len(s) + 12)
     if not hallada or hallada[0] < 0.5:
-        frases.append(None)
+        halladas.append(None)
         print(f"  frase {n:2d}: NO la encuentro")
         continue
     r, i, L = hallada
@@ -168,12 +174,49 @@ for n, f in enumerate(DATOS["frases"]):
         else:
             break
     pos = i + L
-    previo = next((p["fin"] for p in reversed(frases) if p), pitido_t + 0.3 if parecido >= 0.3 else 0.0)
-    w_ini, w_fin = W[i][1], W[i + L - 1][2]
-    voz = arranque(max(previo, w_ini - 0.3), w_fin)
-    ini = max(previo, (silencio(voz, -1, 0.4, 6) or voz - 0.08) - 0.02)
-    fin = (silencio(max(voz, w_fin - 0.05), +1, 0.6, 12) or w_fin + 0.1) + 0.08
-    frases.append({"r": r, "ini": ini, "voz": voz, "fin": fin})
+    b = [m for m in difflib.SequenceMatcher(None, s, Wn[i:i + L], autojunk=False).get_matching_blocks() if m.size]
+    halladas.append({"r": r, "p0": i + b[0].b, "p1": i + b[-1].b + b[-1].size - 1,
+                     "cabeza": b[0].a, "cola": len(s) - (b[-1].a + b[-1].size)})
+
+# (b) Las palabras que Whisper escribió distinto (al borde de una frase) vuelven a su frase:
+# como mucho dos por cada palabra del guion que faltó, para no tragarse un intento fallido
+validas = [k for k, h in enumerate(halladas) if h]
+for ka, kb in zip(validas, validas[1:]):
+    A, B = halladas[ka], halladas[kb]
+    hueco = B["p0"] - A["p1"] - 1
+    para_a = min(2 * A["cola"], max(0, hueco))
+    para_b = min(2 * B["cabeza"], max(0, hueco - para_a))
+    A["p1"] += para_a
+    B["p0"] -= para_b
+if validas:
+    A, Z = halladas[validas[0]], halladas[validas[-1]]
+    A["p0"] = max(0, A["p0"] - 2 * A["cabeza"])
+    Z["p1"] = min(len(W) - 1, Z["p1"] + 2 * Z["cola"])
+
+# (c) Dónde empieza cada frase en la grabación
+frases = [None] * len(halladas)
+limite = pitido_t + 0.3 if parecido >= 0.3 else 0.0
+for k in validas:
+    h = halladas[k]
+    w_ini, w_fin = W[h["p0"]][1], W[h["p1"]][2]
+    voz = arranque(max(limite, w_ini - 0.3), w_fin)
+    ini = max(limite, (silencio(voz, -1, 0.4, 6) or voz - 0.08) - 0.02)
+    frases[k] = {"r": h["r"], "ini": ini, "voz": voz, "w_fin": w_fin}
+    limite = w_fin + 0.05
+
+# (d) Y dónde acaba: el último sonido antes de que empiece la siguiente, sin cortar nada en medio
+for j, k in enumerate(validas):
+    f = frases[k]
+    desde = max(f["voz"], f["w_fin"] - 0.05)
+    tope = frases[validas[j + 1]]["ini"] - 0.01 if j + 1 < len(validas) else min(len(rms) / 100, f["w_fin"] + 1.5)
+    tope = max(tope, desde + 0.05)
+    ultimo = next((i / 100 for i in range(min(int(tope * 100), len(rms) - 1), int(desde * 100) - 1, -1)
+                   if rms[i] >= umbral), None)
+    f["fin"] = min(tope, (ultimo if ultimo is not None else f["w_fin"]) + 0.12)
+    h = halladas[k]
+    if h["cola"] or h["cabeza"]:
+        print(f"  frase {k:2d}: Whisper la escribió distinto en el borde; se queda con: "
+              + " ".join(w for w, _, _ in W[h["p0"]:h["p1"] + 1])[-70:])
 
 # 3. Cada frase en su segundo
 salida = np.zeros(int((TOTAL + 0.5) * SR), np.float32)

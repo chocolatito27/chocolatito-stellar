@@ -337,7 +337,7 @@ Se ha sustituido por la grabación de verdad.
 
 ### El pitch
 
-**https://youtu.be/CUNrs-JTilk** — 2 min 46 s.
+**https://youtu.be/OlzHY2O3m6s** — 2 min 46 s.
 
 Es [PITCH.md](PITCH.md) palabra por palabra, narrado por **Nick Bazán
 Camavilca**, del equipo, con la tipografía y los colores de chocolatito.space y
