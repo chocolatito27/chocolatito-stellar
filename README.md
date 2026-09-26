@@ -337,12 +337,13 @@ Se ha sustituido por la grabación de verdad.
 
 ### El pitch
 
-**https://youtu.be/c1AMS_u7iKw** — 2 min 54 s.
+**https://youtu.be/ZVQDeWzN6tM** — 2 min 49 s.
 
-Es [PITCH.md](PITCH.md) palabra por palabra, narrado con **voces sintéticas**
-(voces neuronales de Microsoft en español de Perú, una por bloque). Los
-fragmentos de la demo que aparecen son de la grabación real, sin acelerar. Los
-guiones que hicieron los dos videos están en [`video/fuentes/`](video/fuentes/).
+Es [PITCH.md](PITCH.md) palabra por palabra, narrado con **voz sintética** (una
+voz neuronal de Microsoft en español de Perú), con la tipografía y los colores
+de chocolatito.space. Cada texto entra cuando la voz lo nombra. Los fragmentos
+de la demo que aparecen son de la grabación real, sin acelerar. Los guiones que
+hicieron los dos videos están en [`video/fuentes/`](video/fuentes/).
 
 ### El agente en su interfaz web
 

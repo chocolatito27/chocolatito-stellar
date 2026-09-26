@@ -18,19 +18,30 @@ node demo-rotulos.mjs   # tarjetas y bandas, con el texto y los tiempos de tramo
 node demo-montar.mjs    # el video: tarjeta, toma con bandas, tarjeta
 ```
 
-## El pitch — https://youtu.be/c1AMS_u7iKw
+## El pitch — https://youtu.be/ZVQDeWzN6tM
 
 Es `PITCH.md` palabra por palabra: `pitch-voz.py` se niega a sintetizar si
 `guion.json` no coincide con el guion bloque a bloque. La voz es sintética
-(`es-PE-CamilaNeural` y `es-PE-AlexNeural`, una por bloque) y va un 7 % más
-rápida para quedar por debajo de los 3 minutos. Los fragmentos de la demo son
-de la toma real, sin acelerar.
+(`es-PE-CamilaNeural`), un 2 % más rápida para quedar en 2:49.
+
+Solo para el audio, algunas palabras se escriben como se dicen: la voz leía
+«hackathon» como «hatón», así que dice «jákaton»; igual con «Circle», «USDC»,
+«XLM», «IA» y «testnet». En pantalla van bien escritas.
+
+La tipografía y los colores son los de chocolatito.space (Bungee, Silkscreen y
+Geist; morado `#1c1330`, naranja `#e0673c`, amarillo `#ffd166`). Cada texto
+entra cuando la voz dice su palabra: `pitch-voz.py` guarda el momento de cada
+palabra y `pitch-escenas.mjs` lo usa, y falla si una palabra no suena.
+
+Antes de empezar hacen falta, en esta carpeta, `logo.png` (el de la web:
+`https://chocolatito.space/logo-chocolatito.png`) y `web.png`, una captura de
+chocolatito.space a 1440×810.
 
 ```bash
-python pitch-voz.py "+7%"   # comprueba el guion, sintetiza cada frase y mide
-node pitch-diapos.mjs       # una imagen por frase (incluye una captura de chocolatito.space)
-node pitch-montar.mjs       # corta por fotogramas contados y pone la voz
+python pitch-voz.py "+2%"   # comprueba el guion, sintetiza y guarda el tiempo de cada palabra
+node pitch-escenas.mjs      # anima cada escena y la captura solo mientras algo se mueve
+node pitch-montar.mjs       # la toma real en sus pantallas, transiciones y la voz
 ```
 
-Para grabarlo con voces de verdad basta con sustituir `narracion.wav` por la
+Para ponerle voces de verdad basta con sustituir `narracion.wav` por la
 grabación, con las mismas pausas, y volver a correr `pitch-montar.mjs`.

@@ -29,3 +29,5 @@ video/fuentes/*.mp3
 video/fuentes/*.mp4
 video/fuentes/linea.json
 video/fuentes/piezas.txt
+video/fuentes/escena-*
+video/fuentes/seg-*
