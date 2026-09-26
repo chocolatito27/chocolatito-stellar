@@ -337,11 +337,14 @@ Se ha sustituido por la grabación de verdad.
 
 ### El pitch
 
-**https://youtu.be/XsecN9pOPnA** — 2 min 46 s.
+**https://youtu.be/CUNrs-JTilk** — 2 min 46 s.
 
-Es [PITCH.md](PITCH.md) palabra por palabra, narrado con **voz sintética** (una
-voz neuronal de Microsoft en español de España), con la tipografía y los colores
-de chocolatito.space. Cada texto entra cuando la voz lo nombra. Los fragmentos
+Es [PITCH.md](PITCH.md) palabra por palabra, narrado por **Nick Bazán
+Camavilca**, del equipo, con la tipografía y los colores de chocolatito.space y
+un fondo musical suave generado por código (no es música de terceros). Cada
+texto entra cuando la voz lo nombra: Nick leyó siguiendo un karaoke con el
+segundo de cada palabra, y cada frase de su grabación se colocó donde empieza.
+La versión anterior, con voz sintética, sigue en https://youtu.be/XsecN9pOPnA. Los fragmentos
 de la demo que aparecen son de la grabación real, sin acelerar. Los guiones que
 hicieron los dos videos están en [`video/fuentes/`](video/fuentes/).
 

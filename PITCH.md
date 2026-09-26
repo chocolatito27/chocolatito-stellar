@@ -1,8 +1,8 @@
 # Guion del video pitch · 3 minutos
 
-**Entregable obligatorio.** Se proyecta en el Demo Day. Versión grabada, con
-voz sintética: **https://youtu.be/XsecN9pOPnA** (2:46). Si lo graban con su
-voz, ver `video/fuentes/LEEME.md`. Máximo 3 minutos: si
+**Entregable obligatorio.** Se proyecta en el Demo Day. Versión grabada,
+narrada por Nick Bazán Camavilca: **https://youtu.be/CUNrs-JTilk** (2:46). La
+anterior, con voz sintética: https://youtu.be/XsecN9pOPnA (2:46). Máximo 3 minutos: si
 se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 
 > Está cronometrado a ~150 palabras por minuto, que es un ritmo de hablar
