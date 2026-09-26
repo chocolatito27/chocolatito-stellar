@@ -18,11 +18,13 @@ node demo-rotulos.mjs   # tarjetas y bandas, con el texto y los tiempos de tramo
 node demo-montar.mjs    # el video: tarjeta, toma con bandas, tarjeta
 ```
 
-## El pitch — https://youtu.be/pD2CttKdHog
+## El pitch — https://youtu.be/XsecN9pOPnA
 
 Es `PITCH.md` palabra por palabra: `pitch-voz.py` se niega a sintetizar si
-`guion.json` no coincide con el guion bloque a bloque. La voz es sintética
-(`es-PE-CamilaNeural`), un 2 % más rápida para quedar en 2:51.
+`guion.json` no coincide con el guion bloque a bloque. La voz es sintética:
+`es-ES-ElviraNeural` (español de España), un 10 % más rápida y 25 Hz más grave,
+para acercarse al tono de una voz de referencia que eligió el equipo. Queda en
+2:46.
 
 Solo para el audio, algunas palabras se escriben como se dicen: la voz leía
 «hackathon» como «hatón», así que dice «jákaton»; igual con «Circle», «USDC»,
@@ -38,7 +40,7 @@ Antes de empezar hacen falta, en esta carpeta, `logo.png` (el de la web:
 chocolatito.space a 1440×810.
 
 ```bash
-python pitch-voz.py "+2%"   # comprueba el guion, sintetiza y guarda el tiempo de cada palabra
+python pitch-voz.py "+10%" es-ES-ElviraNeural -25Hz   # comprueba el guion, sintetiza y guarda el tiempo de cada palabra
 node pitch-escenas.mjs      # anima cada escena y la captura solo mientras algo se mueve
 node pitch-montar.mjs       # la toma real en sus pantallas, transiciones y la voz
 ```

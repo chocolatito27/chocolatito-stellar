@@ -17,8 +17,9 @@ import edge_tts
 
 AQUI = pathlib.Path(__file__).parent
 PITCH = pathlib.Path(r"C:\Users\Ryzen\Documents\tomas\chocolatito-stellar\PITCH.md")
-VOZ = "es-PE-CamilaNeural"
+VOZ = sys.argv[2] if len(sys.argv) > 2 else "es-PE-CamilaNeural"
 VELOCIDAD = sys.argv[1] if len(sys.argv) > 1 else "+7%"
+TONO = sys.argv[3] if len(sys.argv) > 3 else "+0Hz"
 ANTES, ENTRE_FRASES, ENTRE_BLOQUES = 0.6, 0.35, 0.8
 
 # Cómo se dice, no cómo se escribe. Solo afecta al audio.
@@ -58,7 +59,7 @@ def para_decir(t: str) -> str:
 
 async def sintetizar(i: int, frase: dict):
     mp3, wav = AQUI / f"frase-{i:02d}.mp3", AQUI / f"frase-{i:02d}.wav"
-    com = edge_tts.Communicate(para_decir(frase["texto"]), VOZ, rate=VELOCIDAD, boundary="WordBoundary")
+    com = edge_tts.Communicate(para_decir(frase["texto"]), VOZ, rate=VELOCIDAD, pitch=TONO, boundary="WordBoundary")
     audio, palabras = bytearray(), []
     async for trozo in com.stream():
         if trozo["type"] == "audio":
@@ -93,7 +94,7 @@ async def main() -> None:
     mezcla = "".join(f"[a{x['i']}]" for x in linea) + f"amix=inputs={len(linea)}:normalize=0,apad=whole_dur={total}[voz]"
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *entradas, "-filter_complex", ";".join(filtros + [mezcla]),
                     "-map", "[voz]", "-ar", "48000", "-ac", "2", str(AQUI / "narracion.wav")], check=True)
-    print(f"{VOZ} a {VELOCIDAD}: {len(linea)} frases, {total:.1f} s; palabras con tiempo: {sum(len(x['palabras']) for x in linea)}")
+    print(f"{VOZ} a {VELOCIDAD}, tono {TONO}: {len(linea)} frases, {total:.1f} s; palabras con tiempo: {sum(len(x['palabras']) for x in linea)}")
 
 
 asyncio.run(main())

@@ -337,10 +337,10 @@ Se ha sustituido por la grabación de verdad.
 
 ### El pitch
 
-**https://youtu.be/pD2CttKdHog** — 2 min 51 s.
+**https://youtu.be/XsecN9pOPnA** — 2 min 46 s.
 
 Es [PITCH.md](PITCH.md) palabra por palabra, narrado con **voz sintética** (una
-voz neuronal de Microsoft en español de Perú), con la tipografía y los colores
+voz neuronal de Microsoft en español de España), con la tipografía y los colores
 de chocolatito.space. Cada texto entra cuando la voz lo nombra. Los fragmentos
 de la demo que aparecen son de la grabación real, sin acelerar. Los guiones que
 hicieron los dos videos están en [`video/fuentes/`](video/fuentes/).

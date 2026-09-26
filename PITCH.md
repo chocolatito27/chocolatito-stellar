@@ -1,7 +1,7 @@
 # Guion del video pitch · 3 minutos
 
 **Entregable obligatorio.** Se proyecta en el Demo Day. Versión grabada, con
-voz sintética: **https://youtu.be/pD2CttKdHog** (2:51). Si lo graban con su
+voz sintética: **https://youtu.be/XsecN9pOPnA** (2:46). Si lo graban con su
 voz, ver `video/fuentes/LEEME.md`. Máximo 3 minutos: si
 se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 
