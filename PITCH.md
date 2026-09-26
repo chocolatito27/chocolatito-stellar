@@ -1,12 +1,12 @@
 # Guion del video pitch · 3 minutos
 
 **Entregable obligatorio.** Se proyecta en el Demo Day. Versión grabada, con
-voz sintética: **https://youtu.be/ZVQDeWzN6tM** (2:49). Si lo graban con su
+voz sintética: **https://youtu.be/pD2CttKdHog** (2:51). Si lo graban con su
 voz, ver `video/fuentes/LEEME.md`. Máximo 3 minutos: si
 se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 
 > Está cronometrado a ~150 palabras por minuto, que es un ritmo de hablar
-> normal: son unas 440 palabras, 2:54. Si lo leen más rápido, sobra tiempo; si
+> normal: son unas 440 palabras, 2:56. Si lo leen más rápido, sobra tiempo; si
 > se extienden, se corta. **Léanlo en voz alta con un cronómetro antes de
 > grabar.**
 
@@ -31,8 +31,9 @@ se pasa, **se corta al llegar al límite**, así que lo importante va delante.
 
 ## 0:25 – 0:50 · Por qué no se puede arreglar con tarjeta
 
-> Chocolatito es un agente de IA que trabaja sobre tus archivos: lee facturas,
-> ordena carpetas, escribe informes. Ya está a la venta.
+> Chocolatito Code es un agente de IA que trabaja sobre tus archivos: lee
+> facturas, ordena carpetas, escribe informes. Viene con Chocolatito, que ya
+> está a la venta.
 >
 > Cada tarea que hace tiene un coste exacto en dólares, y lo calculamos desde
 > antes de esta hackathon.

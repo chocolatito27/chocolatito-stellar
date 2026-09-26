@@ -18,11 +18,11 @@ node demo-rotulos.mjs   # tarjetas y bandas, con el texto y los tiempos de tramo
 node demo-montar.mjs    # el video: tarjeta, toma con bandas, tarjeta
 ```
 
-## El pitch — https://youtu.be/ZVQDeWzN6tM
+## El pitch — https://youtu.be/pD2CttKdHog
 
 Es `PITCH.md` palabra por palabra: `pitch-voz.py` se niega a sintetizar si
 `guion.json` no coincide con el guion bloque a bloque. La voz es sintética
-(`es-PE-CamilaNeural`), un 2 % más rápida para quedar en 2:49.
+(`es-PE-CamilaNeural`), un 2 % más rápida para quedar en 2:51.
 
 Solo para el audio, algunas palabras se escriben como se dicen: la voz leía
 «hackathon» como «hatón», así que dice «jákaton»; igual con «Circle», «USDC»,

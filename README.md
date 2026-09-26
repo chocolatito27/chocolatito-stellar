@@ -337,7 +337,7 @@ Se ha sustituido por la grabación de verdad.
 
 ### El pitch
 
-**https://youtu.be/ZVQDeWzN6tM** — 2 min 49 s.
+**https://youtu.be/pD2CttKdHog** — 2 min 51 s.
 
 Es [PITCH.md](PITCH.md) palabra por palabra, narrado con **voz sintética** (una
 voz neuronal de Microsoft en español de Perú), con la tipografía y los colores
