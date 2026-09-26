@@ -18,6 +18,20 @@ node demo-rotulos.mjs   # tarjetas y bandas, con el texto y los tiempos de tramo
 node demo-montar.mjs    # el video: tarjeta, toma con bandas, tarjeta
 ```
 
+## El pitch narrado por Nick — https://youtu.be/CUNrs-JTilk
+
+Nick leyó siguiendo `karaoke.html`: cada palabra se enciende en el segundo en
+que la dice la voz sintética del pitch de abajo (los tiempos salen de su
+`linea.json`; `karaoke-datos.py` devuelve las palabras a como se escriben).
+Grabó con el celular. `pitch-poner-voz.py` transcribe la grabación con Whisper,
+ubica cada frase del guion (si una se repite, vale la última) y la pone donde
+arranca la voz sintética. Con la toma de Nick, 18 frases cayeron en su sitio y
+dos entraron 0,5 s y 0,2 s tarde porque la anterior no cabía. `pitch-fondo.py`
+genera el fondo lo-fi nota por nota, así que no es música de nadie, y
+`pitch-mezclar.py` lo deja 12 dB por debajo de la voz, bajando más cuando habla.
+Corrieron desde la carpeta de trabajo, con `pitch2/` al lado: las rutas están
+como estaban.
+
 ## El pitch — https://youtu.be/XsecN9pOPnA
 
 Es `PITCH.md` palabra por palabra: `pitch-voz.py` se niega a sintetizar si

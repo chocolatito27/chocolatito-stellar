@@ -1,0 +1,431 @@
+<title>Karaoke del pitch Chocolatito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Silkscreen&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #1c1330;
+    --panel: #22173a;
+    --borde: #3a2b57;
+    --crema: #fff4e6;
+    --suave: rgba(255, 244, 230, 0.74);
+    --pendiente: rgba(255, 244, 230, 0.5);
+    --tenue: rgba(255, 244, 230, 0.22);
+    --amarillo: #ffd166;
+    --naranja: #e0673c;
+    --sobre-naranja: #1c1330;
+    --display: "Bungee", "Arial Black", Impact, sans-serif;
+    --pixel: "Silkscreen", "Courier New", monospace;
+    --cuerpo: "Geist", "Segoe UI", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, Consolas, monospace;
+  }
+  html { background: var(--fondo); }
+  body {
+    background: var(--fondo);
+    color: var(--crema);
+    font: 400 16px/1.55 var(--cuerpo);
+    padding-inline: 16px;
+  }
+  .app, .abajo { max-width: 1100px; margin-inline: auto; }
+  .app { display: grid; gap: 14px; padding-block: 22px 8px; }
+
+  .cabeza { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 20px; }
+  .ceja { margin: 0 0 6px; font: 400 12px/1.2 var(--pixel); letter-spacing: 0.08em; text-transform: uppercase; color: var(--naranja); }
+  h1 { margin: 0; font: 400 clamp(26px, 4.2vw, 42px)/1.05 var(--display); color: var(--crema); text-wrap: balance; }
+  .reloj { margin: 0; font: 500 clamp(22px, 3vw, 32px)/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--amarillo); white-space: nowrap; }
+  .reloj .de { color: var(--tenue); }
+
+  .progreso { position: relative; height: 6px; border-radius: 3px; background: var(--borde); overflow: hidden; }
+  #barra { position: absolute; inset: 0; transform-origin: left center; transform: scaleX(0); background: linear-gradient(90deg, var(--naranja), var(--amarillo)); }
+  .marca { position: absolute; top: 0; bottom: 0; width: 3px; margin-left: -1px; background: var(--fondo); }
+
+  .escenario { position: relative; height: clamp(300px, 56vh, 600px); font-size: clamp(22px, 3.2vw, 40px); background: var(--panel); border: 1px solid var(--borde); border-radius: 16px; overflow: hidden; }
+  .ventana {
+    height: 100%; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 70%, transparent 100%);
+  }
+  .rollo { position: relative; max-width: 21em; margin-inline: auto; padding-inline: 0.9em; line-height: 1.55; font-weight: 600; transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); will-change: transform; }
+  .guia { position: absolute; left: 0; top: calc(36% - 0.12em); width: 6px; height: 1.4em; border-radius: 0 4px 4px 0; background: var(--naranja); }
+  .etiqueta { margin: 1.4em 0 0.9em; font: 400 0.38em/1.3 var(--pixel); letter-spacing: 0.06em; text-transform: uppercase; color: var(--naranja); }
+  .etiqueta:first-child { margin-top: 0; }
+  .frase { margin: 0 0 0.5em; color: var(--tenue); text-wrap: pretty; transition: color 0.3s; }
+  .frase.activa { color: var(--pendiente); }
+  .frase.activa .dicha { color: var(--crema); }
+  .frase.activa .ahora { color: var(--amarillo); text-shadow: 0 0 0.5em rgba(255, 209, 102, 0.35); }
+  [data-pista] { position: relative; }
+  [data-pista]::before { content: attr(data-pista); position: absolute; left: 50%; bottom: 100%; transform: translate(-50%, 0.25em); font: 500 0.34em/1 var(--mono); letter-spacing: 0.02em; color: var(--naranja); white-space: nowrap; pointer-events: none; }
+  .frase:not(.activa) [data-pista]::before { opacity: 0.45; }
+
+  .aviso { position: absolute; inset: 0; display: grid; place-items: center; padding: 1em; text-align: center; background: rgba(28, 19, 48, 0.72); color: var(--amarillo); }
+  .aviso .num { font: 400 clamp(96px, 24vmin, 220px)/1 var(--display); animation: golpe 0.35s ease-out; }
+  .aviso .fin { margin: 0; max-width: 16em; font: 400 clamp(22px, 3.6vw, 38px)/1.2 var(--display); text-wrap: balance; }
+  @keyframes golpe { from { transform: scale(1.4); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .controles { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+  button { font: 600 15px/1.2 var(--cuerpo); color: var(--crema); background: transparent; border: 1px solid var(--borde); border-radius: 10px; padding: 0.7em 1.05em; cursor: pointer; }
+  button:hover { border-color: var(--suave); }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; }
+  button:disabled { opacity: 0.45; cursor: default; }
+  .primario { min-width: 8.5em; background: var(--naranja); border-color: var(--naranja); color: var(--sobre-naranja); }
+  .primario:hover { border-color: var(--amarillo); }
+  .ritmo { display: inline-flex; max-width: 100%; border: 1px solid var(--borde); border-radius: 10px; overflow: hidden; }
+  .ritmo button { flex: 1 1 auto; border: 0; border-radius: 0; font-weight: 500; }
+  .ritmo button + button { border-left: 1px solid var(--borde); }
+  .ritmo [aria-pressed="true"] { background: var(--borde); color: var(--amarillo); }
+  .caja { display: inline-flex; align-items: center; gap: 0.45em; font-size: 14px; color: var(--suave); cursor: pointer; }
+  .caja input { accent-color: var(--naranja); width: 16px; height: 16px; margin: 0; }
+  .estado { margin: 0; min-height: 1.55em; font-size: 14px; color: var(--suave); }
+
+  .abajo { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 28px 44px; margin-top: 18px; padding-block: 26px 48px; border-top: 1px solid var(--borde); }
+  h2 { margin: 0 0 12px; font: 400 18px/1.2 var(--display); color: var(--crema); }
+  h3 { margin: 22px 0 8px; font: 400 12px/1.3 var(--pixel); letter-spacing: 0.08em; text-transform: uppercase; color: var(--naranja); }
+  h3:first-of-type { margin-top: 4px; }
+  .fila { display: grid; grid-template-columns: 5.4em minmax(0, 1fr); gap: 12px; align-items: baseline; padding-block: 5px; }
+  .fila p { margin: 0; max-width: 62ch; color: var(--suave); }
+  .hora { justify-self: start; padding: 0.25em 0.5em; font: 500 13px/1.3 var(--mono); font-variant-numeric: tabular-nums; color: var(--amarillo); border-radius: 6px; }
+  .notas p { margin: 0 0 24px; color: var(--suave); }
+  .notas ol { margin: 0 0 24px; padding-left: 1.2em; display: grid; gap: 10px; color: var(--suave); }
+  .notas li::marker { color: var(--naranja); font-family: var(--mono); }
+  .notas strong { color: var(--crema); font-weight: 600; }
+  .dichos { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; margin: 0 0 24px; }
+  .dichos dt { font-weight: 600; color: var(--crema); }
+  .dichos dd { margin: 0; align-self: center; font: 500 14px/1.3 var(--mono); color: var(--naranja); }
+  .nota { margin: 0 0 6px; font-size: 14px; color: var(--pendiente); }
+  a { color: var(--amarillo); }
+
+  @media (max-width: 760px) {
+    .abajo { grid-template-columns: minmax(0, 1fr); }
+    .fila { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rollo { transition: none; }
+    .aviso .num { animation: none; }
+  }
+</style>
+
+<div class="app">
+  <header class="cabeza">
+    <div>
+      <p class="ceja">Chocolatito · Stellar Odyssey Perú 2026</p>
+      <h1>Karaoke del pitch</h1>
+    </div>
+    <p class="reloj" aria-label="Tiempo del video"><span id="reloj">0:00.0</span> <span class="de">/ <span id="total">2:46.3</span></span></p>
+  </header>
+  <div class="progreso" id="progreso" aria-hidden="true"><div id="barra"></div></div>
+  <main class="escenario">
+    <div class="ventana" id="ventana"><div class="rollo" id="rollo"></div></div>
+    <div class="guia" aria-hidden="true"></div>
+    <div class="aviso" id="aviso" hidden></div>
+  </main>
+  <div class="controles">
+    <button type="button" id="play" class="primario">Empezar</button>
+    <button type="button" id="inicio">Volver al inicio</button>
+    <div class="ritmo" role="group" aria-label="Ritmo de lectura">
+      <button type="button" id="ritmo-video" data-k="1" aria-pressed="true">Ritmo del video · <span data-dur="1">2:46</span></button>
+      <button type="button" id="ritmo-calmado" data-k="1.075" aria-pressed="false">Más calmado · <span data-dur="1.075">2:59</span></button>
+    </div>
+    <label class="caja" for="pitido"><input type="checkbox" id="pitido" checked> Cuenta 3-2-1 con pitido</label>
+    <label class="caja" for="guia"><input type="checkbox" id="guia"> Voz guía, para practicar</label>
+  </div>
+  <p class="estado" id="estado" aria-live="polite">Esta página no graba: graba con la app del celular y luego pulsa Empezar. Suena 3, 2, 1 y un pitido agudo: ese pitido es el segundo cero del video.</p>
+</div>
+
+<div class="abajo">
+  <section>
+    <h2>El guion, frase por frase</h2>
+    <p class="nota">Cada hora es el momento del video en que empieza la frase. Tócala para practicar desde ahí.</p>
+    <div id="lista"></div>
+  </section>
+  <aside class="notas">
+    <h2>Cómo grabar</h2>
+    <ol>
+      <li>Un cuarto sin eco: con cortinas, cama o ropa colgada. El celular que graba, a un palmo de la boca y un poco de lado.</li>
+      <li><strong>Esta página no graba.</strong> Se graba con la app del celular (Notas de voz en iPhone, Grabadora en Android): primero dale a grabar ahí y después pulsa Empezar aquí. Sin audífonos, para que el micrófono oiga el pitido: con él cuadro la voz con el video. En iPhone, quita el modo silencio.</li>
+      <li>Empieza cada frase cuando se encienda su primera palabra. Si te trabas, no pares: repite la frase entera y sigue. Me quedo con la buena y la pongo en su sitio.</li>
+      <li>Cuando salga «Listo», para la grabación en la app: ahí mismo la escuchas. Luego manda el archivo tal cual sale (m4a, mp3 o wav), diciendo qué ritmo usaste.</li>
+    </ol>
+    <h2>Ritmo</h2>
+    <p>El del video es rápido: unas 160 palabras por minuto. «Más calmado» da un 7,5 % más de tiempo a cada frase; el video se estira lo mismo y queda en 2:59, justo bajo el límite de 3 minutos.</p>
+    <h2>Cómo se dicen</h2>
+    <dl class="dichos">
+      <dt>hackathon</dt><dd>jákaton</dd>
+      <dt>USDC</dt><dd>u-ese-de-ce</dd>
+      <dt>XLM</dt><dd>equis-ele-eme</dd>
+      <dt>Circle</dt><dd>sírcol</dd>
+      <dt>Chocolatito Code</dt><dd>chocolatito coud</dd>
+      <dt>testnet</dt><dd>test net</dd>
+    </dl>
+    <p class="nota">Va sincronizado con el pitch actual, <a href="https://youtu.be/XsecN9pOPnA">youtu.be/XsecN9pOPnA</a>. Pueden leer dos personas, turnándose por bloques.</p>
+  </aside>
+</div>
+
+<script>
+const D = {"total":166.34,"bloques":["El problema, con una cifra","Por qué no se puede arreglar con tarjeta","Lo que construimos","La demo, y el número que lo resume","Lo que es de verdad, y lo que no","El cierre"],"frases":[{"b":1,"ini":0.6,"fin":4.18,"palabras":[["Una",0.69],["tarea",0.9],["de",1.21],["inteligencia",1.3],["artificial",1.93],["cuesta",2.44],["un",2.79],["centavo.",2.88]]},{"b":1,"ini":4.53,"fin":7.26,"palabras":[["Cobrarla",4.62],["con",5.05],["tarjeta",5.23],["cuesta",5.62],["treinta.",5.96]]},{"b":1,"ini":7.61,"fin":19.97,"palabras":[["Por",7.71],["eso",7.84],["nadie",8.06],["cobra",8.34],["por",8.62],["tarea:",8.78],["todo",9.41],["el",9.75],["mundo",9.83],["te",10.13],["vende",10.25],["una",10.53],["suscripción",10.71],["mensual.",11.31],["Pagas",12.62],["diecisiete",12.92],["dólares",13.46],["al",13.9],["mes,",13.99],["uses",14.5],["lo",14.83],["que",14.94],["uses.",15.09],["Si",16.36],["gastaste",16.53],["cuarenta",17.01],["centavos,",17.4],["pagas",18.01],["diecisiete",18.29],["igual.",18.82]]},{"b":1,"ini":20.32,"fin":27.28,"palabras":[["Nosotros",20.42],["vendemos",20.92],["esa",21.36],["suscripción,",21.54],["y",22.37],["sabemos",22.47],["exactamente",22.89],["cuánto",23.53],["nos",23.8],["cuesta",23.96],["atenderte,",24.24],["porque",25.02],["lo",25.29],["medimos",25.37],["en",25.77],["cada",25.86],["llamada.",26.05]]},{"b":2,"ini":28.08,"fin":38.09,"palabras":[["Chocolatito",28.18],["Code",28.78],["es",29.01],["un",29.13],["agente",29.23],["de",29.6],["IA",29.71],["que",29.85],["trabaja",29.96],["sobre",30.35],["tus",30.56],["archivos:",30.77],["lee",31.5],["facturas,",31.77],["ordena",32.38],["carpetas,",32.71],["escribe",33.26],["informes.",33.66],["Viene",35.05],["con",35.33],["Chocolatito,",35.5],["que",36.17],["ya",36.32],["está",36.45],["a",36.66],["la",36.77],["venta.",36.88]]},{"b":2,"ini":38.44,"fin":43.94,"palabras":[["Cada",38.53],["tarea",38.72],["que",39.03],["hace",39.17],["tiene",39.38],["un",39.63],["coste",39.73],["exacto",40.02],["en",40.4],["dólares,",40.48],["y",41.07],["lo",41.14],["calculamos",41.23],["desde",41.77],["antes",42.01],["de",42.26],["esta",42.36],["hackathon.",42.6]]},{"b":2,"ini":44.29,"fin":50.86,"palabras":[["El",44.38],["problema",44.51],["nunca",44.96],["fue",45.27],["medir.",45.43],["Fue",46.63],["cobrar:",46.82],["con",47.26],["tarjeta,",47.41],["una",47.98],["tarea",48.2],["de",48.51],["un",48.62],["centavo",48.72],["no",49.15],["se",49.27],["puede",49.4],["cobrar.",49.64]]},{"b":3,"ini":51.66,"fin":54.09,"palabras":[["Hasta",51.76],["que",52.04],["lo",52.18],["pones",52.27],["sobre",52.55],["Stellar.",52.8]]},{"b":3,"ini":54.44,"fin":64.85,"palabras":[["Lo",54.53],["que",54.69],["hicimos",54.82],["en",55.21],["esta",55.34],["hackathon",55.57],["es",56.02],["que",56.18],["el",56.27],["agente",56.37],["se",56.73],["pague",56.85],["solo.",57.09],["Termina",58.24],["una",58.62],["tarea,",58.79],["sabe",59.16],["lo",59.39],["que",59.49],["costó,",59.61],["y",60.22],["firma",60.37],["ese",60.7],["pago",60.89],["en",61.13],["tu",61.22],["propia",61.32],["computadora,",61.62],["con",62.44],["una",62.62],["clave",62.79],["que",63.05],["nunca",63.17],["sale",63.44],["de",63.67],["ahí.",63.78]]},{"b":3,"ini":65.2,"fin":76.46,"palabras":[["Paga",65.3],["en",65.5],["XLM,",65.63],["y",66.37],["nosotros",66.41],["recibimos",66.85],["dólares",67.35],["exactos,",67.74],["en",68.54],["USDC",68.66],["de",69.17],["Circle:",69.28],["el",69.98],["intercambio",70.14],["de",70.65],["Stellar",70.75],["convierte",71.06],["dentro",71.54],["de",71.81],["la",71.88],["misma",71.98],["transacción,",72.24],["y",73.1],["el",73.21],["agente",73.3],["firma",73.59],["un",73.89],["tope",73.99],["para",74.24],["que",74.41],["el",74.51],["precio",74.6],["no",74.96],["se",75.09],["le",75.22],["mueva.",75.3]]},{"b":3,"ini":76.81,"fin":92.91,"palabras":[["Del",76.9],["otro",77.11],["lado,",77.35],["nuestro",77.78],["verificador",78.13],["no",78.7],["se",78.85],["fía",78.97],["del",79.2],["agente.",79.34],["Va",80.6],["a",80.75],["la",80.88],["cadena",80.96],["y",81.27],["comprueba",81.33],["cinco",81.8],["cosas:",82.1],["que",82.82],["la",82.92],["transacción",83.01],["existe,",83.57],["que",84.07],["nos",84.17],["paga",84.31],["a",84.55],["nosotros,",84.64],["que",85.38],["el",85.48],["memo",85.57],["es",85.82],["de",85.92],["su",86.0],["licencia,",86.13],["que",86.88],["es",86.99],["el",87.15],["USDC",87.23],["de",87.73],["Circle",87.83],["—por",88.38],["quién",88.52],["lo",88.69],["emite,",88.8],["porque",89.27],["cualquiera",89.51],["puede",89.91],["inventarse",90.15],["uno—,",90.66],["y",91.08],["que",91.19],["cubre",91.33],["la",91.63],["deuda.",91.74]]},{"b":4,"ini":93.71,"fin":103.5,"palabras":[["Esto",93.81],["es",94.07],["una",94.2],["tarea",94.36],["real:",94.68],["«lee",95.34],["las",95.58],["facturas",95.72],["de",96.17],["esta",96.27],["carpeta",96.5],["y",96.92],["escribe",96.99],["un",97.42],["balance».",97.53],["Chocolatito",98.79],["Code",99.39],["la",99.64],["hizo",99.77],["de",99.96],["verdad:",100.05],["abrió",100.69],["ocho",100.95],["facturas",101.14],["y",101.63],["escribió",101.7],["el",102.13],["archivo.",102.22]]},{"b":4,"ini":103.85,"fin":110.48,"palabras":[["Cuatro",103.95],["vueltas,",104.26],["cada",104.73],["una",104.95],["medida.",105.13],["Al",106.4],["cerrar,",106.55],["un",107.13],["solo",107.31],["pago",107.57],["de",107.84],["un",107.94],["centavo,",108.05],["firmado",108.54],["y",108.98],["en",109.06],["la",109.13],["cadena.",109.23]]},{"b":4,"ini":110.83,"fin":118.41,"palabras":[["Luego,",110.92],["seis",111.29],["intentos",111.53],["de",111.97],["colar",112.05],["un",112.32],["pago",112.42],["falso,",112.61],["incluido",113.21],["uno",113.72],["con",113.94],["un",114.12],["USDC",114.24],["inventado.",114.76],["Los",116.14],["seis,",116.34],["rechazados.",116.76]]},{"b":4,"ini":118.76,"fin":127.57,"palabras":[["Y",118.86],["el",118.95],["número",119.05],["que",119.36],["lo",119.47],["resume:",119.58],["con",120.16],["tarjeta,",120.3],["la",120.97],["comisión",121.11],["habría",121.58],["sido",121.87],["veintinueve",122.11],["veces",122.64],["lo",122.95],["cobrado.",123.05],["En",124.32],["Stellar",124.48],["fue",124.81],["una",125.01],["décima",125.17],["parte",125.52],["del",125.82],["uno",125.95],["por",126.13],["ciento.",126.27]]},{"b":5,"ini":128.37,"fin":143.87,"palabras":[["Lo",128.47],["que",128.62],["es",128.76],["de",128.89],["verdad",128.98],["y",129.3],["lo",129.34],["que",129.45],["no:",129.58],["esto",130.05],["es",130.35],["testnet,",130.49],["con",131.06],["el",131.23],["USDC",131.33],["de",131.88],["pruebas",131.99],["de",132.31],["Circle.",132.4],["El",133.66],["pago",133.78],["lo",134.06],["firma",134.16],["una",134.5],["capa",134.65],["que",134.91],["corre",135.04],["al",135.36],["lado",135.45],["del",135.69],["agente,",135.83],["todavía",136.31],["no",136.76],["dentro.",136.88],["Y",138.11],["el",138.2],["verificador",138.3],["no",138.89],["está",139.01],["conectado",139.18],["a",139.69],["nuestro",139.75],["servidor",140.04],["de",140.45],["producción,",140.54],["a",141.25],["propósito:",141.33],["ese",142.12],["cobra",142.35],["de",142.64],["verdad.",142.75]]},{"b":5,"ini":144.22,"fin":149.77,"palabras":[["Chocolatito",144.32],["existía",144.9],["antes",145.41],["y",145.74],["lo",145.81],["declaramos:",145.91],["lo",146.84],["que",146.96],["presentamos",147.06],["es",147.68],["solo",147.77],["la",148.03],["capa",148.14],["de",148.38],["pagos.",148.46]]},{"b":6,"ini":150.57,"fin":156.21,"palabras":[["No",150.66],["es",150.86],["una",150.99],["idea:",151.15],["es",151.68],["un",151.97],["producto",152.09],["que",152.49],["ya",152.61],["se",152.72],["vende,",152.86],["con",153.16],["la",153.32],["forma",153.43],["de",153.71],["cobrar",153.8],["que",154.12],["le",154.24],["estamos",154.31],["construyendo.",154.7]]},{"b":6,"ini":156.56,"fin":160.4,"palabras":[["Tu",156.65],["agente",156.76],["tiene",157.14],["cartera",157.39],["propia",157.76],["y",158.11],["paga",158.16],["sus",158.43],["propias",158.62],["facturas.",158.97]]},{"b":6,"ini":160.75,"fin":162.84,"palabras":[["Gracias.",160.84]]}]};
+const PISTA = { hackathon: "jákaton", USDC: "u-ese-de-ce", XLM: "equis-ele-eme", Circle: "sírcol", testnet: "test net", Code: "coud" };
+const LENTO = 1.075;
+const $ = (s) => document.querySelector(s);
+const rollo = $("#rollo"), ventana = $("#ventana"), aviso = $("#aviso"), estado = $("#estado");
+const relojEl = $("#reloj"), barra = $("#barra"), bPlay = $("#play"), cPitido = $("#pitido"), cGuia = $("#guia");
+
+let k = 1;
+try { if (localStorage.getItem("karaoke-ritmo") === String(LENTO)) k = LENTO; } catch (e) {}
+
+function mmss(t) {
+  t = Math.round(Math.max(0, t) * 10) / 10;
+  const m = Math.floor(t / 60);
+  return m + ":" + (t - m * 60).toFixed(1).padStart(4, "0");
+}
+function mss(t) {
+  const s = Math.round(t);
+  return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+}
+
+// El rollo: bloques, frases y palabras, cada una con su segundo
+const palabras = [], frases = [];
+let b = 0;
+D.frases.forEach((f) => {
+  if (f.b !== b) {
+    b = f.b;
+    const e = document.createElement("p");
+    e.className = "etiqueta";
+    e.textContent = "Bloque " + b + " · " + D.bloques[b - 1];
+    rollo.append(e);
+  }
+  const p = document.createElement("p");
+  p.className = "frase";
+  const desde = palabras.length;
+  f.palabras.forEach(([w, t], j) => {
+    if (j) p.append(" ");
+    const s = document.createElement("span");
+    s.textContent = w;
+    const nucleo = w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "");
+    if (PISTA[nucleo]) s.dataset.pista = PISTA[nucleo];
+    p.append(s);
+    palabras.push({ el: s, t });
+  });
+  rollo.append(p);
+  frases.push({ el: p, ini: f.ini, fin: f.fin, desde, hasta: palabras.length });
+});
+
+b = 0;
+D.frases.forEach((f) => {
+  if (f.b === b) return;
+  b = f.b;
+  if (f.ini < 1) return;
+  const m = document.createElement("span");
+  m.className = "marca";
+  m.style.left = (100 * f.ini / D.total) + "%";
+  $("#progreso").append(m);
+});
+document.querySelectorAll("[data-dur]").forEach((x) => { x.textContent = mss(D.total * Number(x.dataset.dur)); });
+
+// Pintar un instante: qué frase va, qué palabra toca, y la línea en la guía
+let fAhora = -1, wAhora = -2, cAhora = null, yAhora = null;
+function pintar(t, forzar) {
+  let f = 0;
+  for (let n = 1; n < frases.length; n++) if (frases[n].ini * k - 0.3 <= t) f = n;
+  const F = frases[f];
+  let w = -1;
+  for (let i = F.desde; i < F.hasta; i++) if (palabras[i].t * k <= t) w = i;
+  const cantada = t > F.fin * k;
+  if (forzar || f !== fAhora || w !== wAhora || cantada !== cAhora) {
+    if (fAhora >= 0 && fAhora !== f) {
+      const V = frases[fAhora];
+      for (let i = V.desde; i < V.hasta; i++) palabras[i].el.className = "";
+    }
+    frases.forEach((x, n) => { x.el.className = "frase" + (n === f ? " activa" : n < f ? " pasada" : ""); });
+    for (let i = F.desde; i < F.hasta; i++) {
+      palabras[i].el.className = i < w || (i === w && cantada) ? "dicha" : i === w ? "ahora" : "";
+    }
+    fAhora = f; wAhora = w; cAhora = cantada;
+    anclar(palabras[w >= 0 ? w : F.desde].el, forzar);
+  }
+  barra.style.transform = "scaleX(" + Math.min(1, Math.max(0, t) / (D.total * k)) + ")";
+  relojEl.textContent = mmss(t);
+}
+function anclar(el, forzar) {
+  const y = el.offsetTop;
+  if (y === yAhora && !forzar) return;
+  yAhora = y;
+  rollo.style.transform = "translateY(" + Math.round(ventana.clientHeight * 0.36 - y) + "px)";
+}
+
+// El reloj es el del audio: el pitido y las palabras van con el mismo
+let ctx = null, base = 0, corriendo = false, quieto = 0, arranque = 0, raf = 0, sonidos = [], voz = null, bloqueo = null, cuenta = -1;
+const ahora = () => (corriendo ? ctx.currentTime - base : quieto);
+
+function audio() {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state === "suspended") ctx.resume();
+  return ctx;
+}
+function pita(cuando, hz, dur) {
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.type = "sine";
+  o.frequency.value = hz;
+  g.gain.setValueAtTime(0, cuando);
+  g.gain.linearRampToValueAtTime(0.45, cuando + 0.005);
+  g.gain.setValueAtTime(0.45, cuando + dur - 0.01);
+  g.gain.linearRampToValueAtTime(0, cuando + dur);
+  o.connect(g).connect(ctx.destination);
+  o.start(cuando);
+  o.stop(cuando + dur + 0.02);
+  sonidos.push(o);
+}
+function callar() {
+  sonidos.forEach((s) => { try { s.stop(); } catch (e) {} });
+  sonidos = [];
+  cancelAnimationFrame(raf);
+  if (bloqueo) bloqueo.release().catch(() => {});
+  bloqueo = null;
+}
+function iniciar(desde, completa) {
+  audio();
+  callar();
+  arranque = desde;
+  base = ctx.currentTime + 3 - desde;
+  if (cPitido.checked) {
+    for (const s of [3, 2, 1]) pita(base + desde - s, 660, 0.12);
+    if (completa) pita(base, 1320, 0.25);
+  }
+  if (cGuia.checked && voz) {
+    const src = ctx.createBufferSource();
+    src.buffer = voz;
+    src.playbackRate.value = 1 / k;
+    src.connect(ctx.destination);
+    src.start(base + desde, desde / k);
+    sonidos.push(src);
+  }
+  corriendo = true;
+  cuenta = -1;
+  if (navigator.wakeLock) navigator.wakeLock.request("screen").then((l) => { bloqueo = l; }, () => {});
+  estado.textContent = !completa ? "Practicando desde " + mmss(desde) + "."
+    : cGuia.checked ? "Ojo: la voz guía está sonando. Para grabar, quítala."
+    : "Sigue las palabras amarillas.";
+  botones();
+  raf = requestAnimationFrame(bucle);
+}
+function bucle() {
+  const t = ahora();
+  if (t < arranque) {
+    const n = Math.ceil(arranque - t);
+    if (n !== cuenta) {
+      cuenta = n;
+      aviso.hidden = false;
+      aviso.innerHTML = '<span class="num">' + n + "</span>";
+    }
+    pintar(arranque);
+  } else {
+    if (cuenta !== 0) { cuenta = 0; aviso.hidden = true; }
+    if (t >= D.total * k) return terminar();
+    pintar(t);
+  }
+  raf = requestAnimationFrame(bucle);
+}
+function terminar() {
+  quieto = D.total * k;
+  corriendo = false;
+  callar();
+  pintar(quieto);
+  aviso.hidden = false;
+  aviso.innerHTML = '<p class="fin">Listo. Para la grabación en la app del celular.</p>';
+  estado.textContent = "Fin del pitch. La grabación se escucha en la app del celular; luego manda el archivo tal cual sale, y di qué ritmo usaste.";
+  botones();
+}
+function pausar() {
+  quieto = Math.max(arranque, ahora());
+  corriendo = false;
+  callar();
+  aviso.hidden = true;
+  estado.textContent = "En pausa en " + mmss(quieto) + ". «Seguir» retoma dos segundos antes.";
+  botones();
+}
+function alInicio() {
+  corriendo = false;
+  callar();
+  quieto = 0;
+  aviso.hidden = true;
+  pintar(0, true);
+  estado.textContent = "Al inicio. Pulsa Empezar cuando la grabadora ya esté grabando.";
+  botones();
+}
+function botones() {
+  const fin = D.total * k;
+  bPlay.textContent = corriendo ? "Pausa" : quieto > 0 && quieto < fin ? "Seguir" : "Empezar";
+  document.querySelectorAll("[data-k]").forEach((x) => {
+    x.disabled = corriendo;
+    x.setAttribute("aria-pressed", String(Number(x.dataset.k) === k));
+  });
+  $("#total").textContent = mmss(fin);
+}
+
+function lista() {
+  const cont = $("#lista");
+  cont.textContent = "";
+  let b = 0;
+  D.frases.forEach((f) => {
+    if (f.b !== b) {
+      b = f.b;
+      const h = document.createElement("h3");
+      h.textContent = "Bloque " + b + " · " + D.bloques[b - 1];
+      cont.append(h);
+    }
+    const fila = document.createElement("div");
+    fila.className = "fila";
+    const hora = document.createElement("button");
+    hora.type = "button";
+    hora.className = "hora";
+    hora.textContent = mmss(f.palabras[0][1] * k);
+    hora.title = "Practicar desde aquí";
+    hora.addEventListener("click", () => {
+      iniciar(Math.max(0, f.ini * k - 1.5), false);
+      $(".app").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    const txt = document.createElement("p");
+    txt.textContent = f.palabras.map((p) => p[0]).join(" ");
+    fila.append(hora, txt);
+    cont.append(fila);
+  });
+}
+
+bPlay.addEventListener("click", () => {
+  if (corriendo) return pausar();
+  if (quieto > 0 && quieto < D.total * k) iniciar(Math.max(0, quieto - 2), false);
+  else { quieto = 0; iniciar(0, true); }
+});
+$("#inicio").addEventListener("click", alInicio);
+document.querySelectorAll("[data-k]").forEach((x) => x.addEventListener("click", () => {
+  if (corriendo) return;
+  k = Number(x.dataset.k);
+  try { localStorage.setItem("karaoke-ritmo", String(k)); } catch (e) {}
+  lista();
+  alInicio();
+}));
+cGuia.addEventListener("change", () => {
+  if (!cGuia.checked) { estado.textContent = "Voz guía apagada."; return; }
+  if (voz) { estado.textContent = "Voz guía encendida. Quítala antes de grabar, o se graba encima."; return; }
+  estado.textContent = "Cargando la voz guía…";
+  const a = audio();
+  fetch("narracion.mp3")
+    .then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.arrayBuffer(); })
+    .then((buf) => a.decodeAudioData(buf))
+    .then((v) => { voz = v; estado.textContent = "Voz guía lista: es la del video. Quítala antes de grabar, o se graba encima."; })
+    .catch(() => { cGuia.checked = false; estado.textContent = "No se pudo cargar la voz guía. El karaoke funciona igual sin ella."; });
+});
+document.addEventListener("keydown", (e) => {
+  if (e.target.closest && e.target.closest("button, input, a")) return;
+  if (e.code === "Space") { e.preventDefault(); bPlay.click(); }
+  else if (e.key === "Escape") alInicio();
+});
+addEventListener("resize", () => {
+  const t = ahora();
+  pintar(corriendo && t < arranque ? arranque : t, true);
+});
+
+lista();
+botones();
+pintar(0, true);
+if (document.fonts) document.fonts.ready.then(() => { const t = ahora(); pintar(corriendo && t < arranque ? arranque : t, true); });
+</script>
