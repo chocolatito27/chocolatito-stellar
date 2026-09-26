@@ -396,7 +396,6 @@ los 3 minutos).
 | | GitHub |
 |---|---|
 | Tomás Diego Araujo Tejada | [@chocolatito27](https://github.com/chocolatito27) |
-| Rony Ricra Rojas | [@leonelricra2](https://github.com/leonelricra2) |
 | Nick Bazán Camavilca | [@nickbazan](https://github.com/nickbazan) |
 
 ## Licencia
